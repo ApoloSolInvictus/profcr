@@ -184,7 +184,7 @@
             data.forEach((item, index) => {
                 const profileUrl = `https://${item.subdomain}.profcr.com`;
                 // Asignación de imágenes de ejemplo. Sube tus imágenes a una carpeta "images".
-                const imageUrl = `images/profesional_${index % 3 + 1}.jpg`; 
+                const imageUrl = item.imageUrl || 'https://placehold.co/600x400/f5f5f7/1d1d1f?text=Perfil'; 
 
                 const card = `
                 <a href="${profileUrl}" target="_blank" class="block bg-white rounded-2xl overflow-hidden card-hover border border-gray-200/80 animate-fade-in-up" style="animation-delay: ${index * 100}ms;">
@@ -226,4 +226,5 @@
 
 </body>
 </html>
+
 
