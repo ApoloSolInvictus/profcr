@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProfCR - Directorio de Profesionales de Costa Rica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .hero-bg { background-color: #f8f9fa; }
+        .search-container { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        .plan-popular { transform: scale(1.05); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fade-in 0.5s ease-out forwards; }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-blue-600">
+                Prof<span class="text-red-600">CR</span>.com
+            </a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#directorio" class="text-gray-600 hover:text-blue-600 transition duration-300">Directorio</a>
+                <a href="#planes" class="text-gray-600 hover:text-blue-600 transition duration-300">Nuestros Planes</a>
+                <a href="#contacto" class="text-gray-600 hover:text-blue-600 transition duration-300">Contacto</a>
+            </div>
+            <a href="#planes" class="hidden md:block bg-blue-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                Obtén tu Sitio Web
+            </a>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4">
+            <a href="#directorio" class="block py-2 text-gray-600 hover:text-blue-600">Directorio</a>
+            <a href="#planes" class="block py-2 text-gray-600 hover:text-blue-600">Nuestros Planes</a>
+            <a href="#contacto" class="block py-2 text-gray-600 hover:text-blue-600">Contacto</a>
+            <a href="#planes" class="block mt-2 bg-blue-600 text-white text-center font-medium py-2 px-4 rounded-lg hover:bg-blue-700">
+                Obtén tu Sitio Web
+            </a>
+        </div>
+    </header>
+    <main>
+        <section class="hero-bg pt-20 pb-24">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-4">
+                    Encuentra al Profesional que necesitas en Costa Rica.
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10">
+                    El directorio más completo de profesionales, servicios y comercios locales. Rápido, confiable y al alcance de tu mano.
+                </p>
+                <div id="directorio" class="max-w-4xl mx-auto">
+                    <div class="bg-white p-4 sm:p-6 rounded-xl search-container flex flex-col sm:flex-row items-center gap-4">
+                        <div class="relative flex-grow w-full">
+                            <svg class="w-6 h-6 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            <input id="search-input" type="text" placeholder="Ej: Abogado, San José, Barbería Luka..." class="w-full h-14 pl-14 pr-4 py-2 text-lg border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-300">
+                        </div>
+                        <button id="search-button" class="w-full sm:w-auto bg-red-600 text-white font-bold text-lg h-14 px-10 rounded-lg hover:bg-red-700 transition duration-300 flex items-center justify-center">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="search-results" class="container mx-auto px-6 py-12">
+            <div id="results-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            </div>
+        </section>
+        <section id="planes" class="bg-gray-50 py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Dale a tu negocio la presencia digital que merece</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-16">Planes claros, precios justos y resultados profesionales. Sin sorpresas.</p>
+                <div class="grid lg:grid-cols-3 gap-12 lg:gap-8 max-w-6xl mx-auto">
+                    <div class="bg-white rounded-2xl p-8 border border-gray-200 flex flex-col">
+                        <h3 class="text-2xl font-bold mb-2">Esencial</h3>
+                        <p class="text-gray-500 mb-6">La tarjeta de visita digital perfecta.</p>
+                        <p class="text-5xl font-extrabold mb-2">$29<span class="text-xl font-medium text-gray-500">/mes</span></p>
+                        <p class="text-gray-500 mb-8">($149 activación)</p>
+                        <ul class="text-left space-y-4 mb-10 flex-grow">
+                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Sitio Web (One-Page)</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>4 Secciones de Contenido</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Diseño 100% Adaptable</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Hosting y Mantenimiento</li>
+                        </ul>
+                        <a href="#" class="w-full bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition duration-300">Elegir Plan</a>
+                    </div>
+                    <div class="bg-blue-600 text-white rounded-2xl p-8 border border-gray-200 flex flex-col relative plan-popular">
+                        <span class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Más Popular</span>
+                        <h3 class="text-2xl font-bold mb-2">Crecimiento</h3>
+                        <p class="text-blue-200 mb-6">La solución ideal para la mayoría.</p>
+                        <p class="text-5xl font-extrabold mb-2">$49<span class="text-xl font-medium text-blue-200">/mes</span></p>
+                        <p class="text-blue-200 mb-8">($249 activación)</p>
+                        <ul class="text-left space-y-4 mb-10 flex-grow">
+                            <li class="flex items-center"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Sitio Web de hasta 5 págs.</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Formulario de Contacto</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Galería de Imágenes</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Hosting y Mantenimiento</li>
+                        </ul>
+                        <a href="#" class="w-full bg-white text-blue-600 font-bold py-3 px-6 rounded-lg hover:bg-blue-100 transition duration-300">Elegir Plan</a>
+                    </div>
+                    <div class="bg-white rounded-2xl p-8 border border-gray-200 flex flex-col">
+                        <h3 class="text-2xl font-bold mb-2">Impacto</h3>
+                        <p class="text-gray-500 mb-6">Para quienes buscan posicionarse.</p>
+                        <p class="text-5xl font-extrabold mb-2">$79<span class="text-xl font-medium text-gray-500">/mes</span></p>
+                        <p class="text-gray-500 mb-8">($399 activación)</p>
+                        <ul class="text-left space-y-4 mb-10 flex-grow">
+                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Todo lo del Plan Crecimiento</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Sección de Blog / Noticias</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>SEO Básico Inicial</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Informe Trimestral de Visitas</li>
+                        </ul>
+                        <a href="#" class="w-full bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition duration-300">Elegir Plan</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer id="contacto" class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-10">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-2">Prof<span class="text-red-500">CR</span>.com</h3>
+                    <p class="text-gray-400">Conectando profesionales y clientes en toda Costa Rica.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-3">Navegación</h4>
+                    <ul>
+                        <li class="mb-2"><a href="#directorio" class="text-gray-400 hover:text-white">Directorio</a></li>
+                        <li class="mb-2"><a href="#planes" class="text-gray-400 hover:text-white">Nuestros Planes</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Términos de Servicio</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-3">¿Eres un Profesional?</h4>
+                    <p class="text-gray-400 mb-4">Únete a nuestra red y consigue más clientes.</p>
+                    <a href="#planes" class="bg-red-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-red-700 transition duration-300">Quiero mi Sitio Web</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500">
+                <p>&copy; 2024 W Studio. Creado por Apollo y Gemini. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <!-- JavaScript Section -->
+    <script>
+        // --- PEGA TU CONFIGURACIÓN DE FIREBASE AQUÍ ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyAtxCQq2xbqTBnPFQlTNUNyF4tqUxJ8C2I",
+            authDomain: "prof-cr.firebaseapp.com",
+            projectId: "prof-cr",
+            storageBucket: "prof-cr.firebasestorage.app",
+            messagingSenderId: "551014084704",
+            appId: "T1:551014084704:web:86587fbe5e8c86e9a99305"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // --- Mobile Menu Functionality ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- Search Functionality with Firestore ---
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const resultsContainer = document.getElementById('results-container');
+        
+        let professionalsData = []; 
+
+        async function fetchProfessionals() {
+            if (professionalsData.length > 0) {
+                return professionalsData;
+            }
+            try {
+                const snapshot = await db.collection('profesionales').get();
+                professionalsData = snapshot.docs.map(doc => doc.data());
+                return professionalsData;
+            } catch (error) {
+                console.error("Error al obtener los datos: ", error);
+                return [];
+            }
+        }
+
+        // --- CAMBIO CLAVE AQUÍ ---
+        const renderResults = (data) => {
+            resultsContainer.innerHTML = '';
+            if (data.length === 0) {
+                resultsContainer.innerHTML = `<p class="text-gray-600 col-span-full text-center">No se encontraron resultados.</p>`;
+                return;
+            }
+            data.forEach(item => {
+                // Construimos la URL completa usando el campo 'subdomain'
+                const profileUrl = `https://${item.subdomain}.profcr.com`;
+
+                const card = `
+                <div class="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-xl transition-shadow duration-300 animate-fade-in">
+                    <h3 class="text-xl font-bold text-blue-600 mb-2">${item.name}</h3>
+                    <p class="text-gray-500 mb-1">${item.category} • ${item.location}</p>
+                    <p class="text-gray-700 mb-4">${item.description}</p>
+                    <!-- El href ahora es dinámico y abre en una nueva pestaña -->
+                    <a href="${profileUrl}" target="_blank" class="font-semibold text-red-600 hover:underline">Ver Perfil →</a>
+                </div>`;
+                resultsContainer.innerHTML += card;
+            });
+        };
+        
+        const performSearch = async () => {
+            const allData = await fetchProfessionals();
+            const query = searchInput.value.toLowerCase().trim();
+            if (!query) {
+                renderResults(allData.slice(0, 3));
+                return;
+            }
+            const filteredData = allData.filter(item => {
+                const searchableString = item.tags.join(' ').toLowerCase();
+                return searchableString.includes(query);
+            });
+            renderResults(filteredData);
+        };
+
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        async function initialLoad() {
+            const initialData = await fetchProfessionals();
+            renderResults(initialData.slice(0, 6));
+        }
+
+        initialLoad();
+    </script>
+
+</body>
+</html>
