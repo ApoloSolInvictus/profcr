@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProfCR - Tu Presencia Profesional, Elevada.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #ffffff;
+            color: #1d1d1f;
+        }
+        .header-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(255, 255, 255, 0.7);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+        }
+        .search-input {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236e6e73' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: 1.5rem center;
+            background-size: 1.25rem;
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+        }
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fade-in-up 0.8s ease-out forwards;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="header-blur sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-semibold text-gray-800">Prof<span class="text-blue-600">CR</span></a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-700">
+                <a href="#directorio" class="hover:text-blue-600 transition-colors">Directorio</a>
+                <a href="#beneficios" class="hover:text-blue-600 transition-colors">Beneficios</a>
+                <a href="#planes" class="hover:text-blue-600 transition-colors">Planes</a>
+            </div>
+            <a href="#planes" class="hidden md:block bg-blue-600 text-white text-sm font-semibold py-2 px-4 rounded-full hover:bg-blue-700 transition-colors">Obtener Sitio Web</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero & Search Section -->
+        <section id="directorio" class="text-center py-24 md:py-32 px-6 bg-white">
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-6">El profesional que buscas, <br>justo aquí.</h1>
+            <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-600 mb-10">Conecta con los mejores profesionales y servicios de Costa Rica. Fácil, rápido y confiable.</p>
+            <div class="max-w-xl mx-auto">
+                <input id="search-input" type="text" placeholder="Busca por servicio, nombre o ubicación..." class="search-input w-full h-16 pl-20 pr-6 text-lg bg-gray-50 border border-gray-200 rounded-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-300">
+            </div>
+        </section>
+
+        <!-- Search Results Section -->
+        <section class="container mx-auto px-6 pb-24 -mt-16">
+            <h2 class="text-center text-sm font-semibold tracking-widest text-gray-500 uppercase mb-8">Últimos profesionales agregados</h2>
+            <div id="results-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- JS insertará las tarjetas de ejemplo aquí -->
+            </div>
+        </section>
+
+        <!-- Multi-device Mockup Section -->
+        <section id="beneficios" class="py-24 md:py-32 px-6 bg-gray-50 overflow-hidden">
+            <div class="container mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Tu CV digital, perfecto en cualquier pantalla.</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-20">Un profesional moderno necesita una presentación impecable. Tu sitio web es tu currículum vitae digital: siempre activo, siempre profesional, siempre generando oportunidades. Se adapta a la perfección, desde el escritorio de un cliente hasta el celular en tu mano.</p>
+                <div class="relative flex items-center justify-center h-[500px]">
+                    <!-- Laptop -->
+                    <div class="absolute z-10 w-[70%] max-w-4xl animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <!-- Inserta tu mockup de laptop PNG aquí -->
+                        <img src="https://placehold.co/1024x640/png?text=Laptop" alt="Sitio web en laptop">
+                    </div>
+                    <!-- Tablet -->
+                    <div class="absolute z-20 -bottom-16 -left-8 w-[35%] max-w-xs animate-fade-in-up" style="animation-delay: 0.4s;">
+                         <!-- Inserta tu mockup de tablet PNG aquí -->
+                        <img src="https://placehold.co/480x640/png?text=Tablet" alt="Sitio web en tablet">
+                    </div>
+                    <!-- Phone -->
+                    <div class="absolute z-20 -bottom-24 -right-8 w-[20%] max-w-[150px] animate-fade-in-up" style="animation-delay: 0.6s;">
+                         <!-- Inserta tu mockup de celular PNG aquí -->
+                        <img src="https://placehold.co/375x812/png?text=Phone" alt="Sitio web en celular">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- "Goodbye Paper" Section -->
+        <section class="py-24 md:py-32 px-6 bg-white">
+            <div class="container mx-auto grid lg:grid-cols-2 gap-16 items-center">
+                <div class="text-center lg:text-left">
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">El fin del papel. <br>El inicio de la eficiencia.</h2>
+                    <p class="text-lg text-gray-600">Olvida las tarjetas de presentación que se pierden y los folletos que se desechan. Tu presencia digital es sostenible, actualizable al instante y trabaja para ti 24/7, conectándote con clientes que de otra manera no te encontrarían.</p>
+                </div>
+                <div class="flex justify-center items-center h-80">
+                    <!-- Inserta tu imagen PNG conceptual aquí (ej. una tarjeta de presentación disolviéndose) -->
+                    <img src="https://placehold.co/500x300/png?text=Adi%C3%B3s+Papel" alt="Concepto del fin del papel" class="max-h-full">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Plans Section -->
+        <section id="planes" class="py-24 bg-gray-50">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold tracking-tight mb-16">Planes para cada necesidad.</h2>
+                <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto text-left">
+                    <!-- Cards de Planes -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contacto" class="bg-white">
+        <div class="container mx-auto px-6 py-16 text-center text-gray-600 border-t border-gray-200">
+            <a href="#" class="text-xl font-semibold text-gray-800 mb-6 block">Prof<span class="text-blue-600">CR</span></a>
+            <p class="text-sm max-w-md mx-auto mb-8">Impulsando a los profesionales de Costa Rica con tecnología y diseño de clase mundial.</p>
+            <p class="text-xs text-gray-500">&copy; 2024 W Studio. Creado por Apollo y Gemini.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript con datos de ejemplo -->
+    <script>
+        // --- DATOS DE EJEMPLO (SIN FIREBASE) ---
+        const mockData = [
+            { 
+                name: 'Abogados García & Asoc.', 
+                category: 'Servicios Legales', 
+                location: 'San José', 
+                description: 'Especialistas en derecho de familia y comercial. Asesoría experta y confiable para proteger tus intereses.',
+                imageUrl: 'https://placehold.co/800x450/2d3748/ffffff?text=Garc%C3%ADa+%26+Asoc.',
+                subdomain: 'abogadosgarcia'
+            },
+            { 
+                name: 'Barbería Luka', 
+                category: 'Cuidado Personal', 
+                location: 'San Pedro', 
+                description: 'Cortes de cabello y barba con estilo clásico y moderno. Más que un corte, una experiencia de calidad.',
+                imageUrl: 'https://placehold.co/800x450/b91c1c/ffffff?text=Barber%C3%ADa+Luka',
+                subdomain: 'barberialuka'
+            },
+            { 
+                name: 'Arq. Sofía Castro', 
+                category: 'Arquitectura y Diseño', 
+                location: 'Cartago', 
+                description: 'Diseño de planos arquitectónicos para proyectos residenciales y comerciales. Creatividad y funcionalidad.',
+                imageUrl: 'https://placehold.co/800x450/1d4ed8/ffffff?text=Arq.+Castro',
+                subdomain: 'sofiacastro'
+            }
+        ];
+
+        const searchInput = document.getElementById('search-input');
+        const resultsContainer = document.getElementById('results-container');
+
+        const renderResults = (data) => {
+            resultsContainer.innerHTML = '';
+            if (data.length === 0) {
+                resultsContainer.innerHTML = `<p class="col-span-full text-center text-gray-500">No se encontraron resultados para tu búsqueda.</p>`;
+                return;
+            }
+            
+            data.forEach((item, index) => {
+                const profileUrl = `https://${item.subdomain}.profcr.com`;
+                const card = `
+                <a href="${profileUrl}" target="_blank" class="block bg-white rounded-2xl overflow-hidden card-hover border border-gray-200/50 animate-fade-in-up" style="animation-delay: ${index * 100}ms;">
+                    <div class="w-full h-56 bg-gray-200">
+                        <img src="${item.imageUrl}" alt="${item.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm font-medium text-blue-600 mb-1">${item.category} • ${item.location}</p>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">${item.name}</h3>
+                        <p class="text-gray-600 text-sm">${item.description}</p>
+                    </div>
+                </a>`;
+                resultsContainer.innerHTML += card;
+            });
+        };
+
+        // Render inicial
+        renderResults(mockData);
+
+    </script>
+
+</body>
+</html>
