@@ -100,7 +100,7 @@
     <header class="header-blur sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="#">
-                <img src="images/logo.png" alt="ProfCR Logo" class="h-12 w-auto">
+                <img src="images/logo.png" alt="ProfCR Logo" class="h-13 w-auto">
             </a>
             <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-700">
                 <a href="#directorio" class="hover:text-blue-600 transition-colors">Directorio</a>
@@ -141,6 +141,11 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+            
             <a href="#planes" class="mt-4 inline-block bg-blue-600 text-white text-sm font-semibold py-3 px-6 rounded-full hover:bg-blue-700 transition-colors menu-link">Obtener Sitio Web</a>
         </nav>
         <!-- Footer del Menú Móvil -->
@@ -363,7 +368,7 @@
         searchInput.addEventListener('keyup', performSearch);
         renderResults(database.slice(0, 3));
 
-        // --- LÓGICA DE MENÚ MÓVIL ---
+                // --- LÓGICA DE MENÚ MÓVIL ---
         const menuBtn = document.getElementById('menu-btn');
         const closeBtn = document.getElementById('close-btn');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -423,6 +428,7 @@
 
 </body>
 </html>
+
 
 
 
