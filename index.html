@@ -167,7 +167,7 @@
                             <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">✓</span>Diseño profesional y adaptable.</li>
                             <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">✓</span>Hosting y mantenimiento incluidos.</li>
                         </ul>
-                        <a href="#" class="w-full text-center bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-colors">Comenzar</a>
+                        
                         <div id="paypal-button-container-P-8KD45673HW2618100NCYUADY"></div>
 <script src="https://www.paypal.com/sdk/js?client-id=AZhuHaoRMy0PKJJbcCBDANsX-jjoCCBLzhEEvFB7v5oVPxRH8YIxuP3P4_Zap0eEOU-wvzYstPQ-kjD4&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
 <script>
@@ -200,7 +200,28 @@
                             <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span>Galería de imágenes y formulario.</li>
                             <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span>Ideal para mostrar tu trabajo.</li>
                         </ul>
-                        <a href="#" class="w-full text-center bg-white text-gray-900 font-semibold py-3 rounded-lg hover:bg-gray-200 transition-colors">Comenzar</a>
+
+                        <div id="paypal-button-container-P-56V88652NF3688233NCYUEMI"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=AZhuHaoRMy0PKJJbcCBDANsX-jjoCCBLzhEEvFB7v5oVPxRH8YIxuP3P4_Zap0eEOU-wvzYstPQ-kjD4&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script>
+  paypal.Buttons({
+      style: {
+          shape: 'pill',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'subscribe'
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-56V88652NF3688233NCYUEMI'
+        });
+      },
+      onApprove: function(data, actions) {
+        alert(data.subscriptionID); // You can add optional success message for the subscriber here
+      }
+  }).render('#paypal-button-container-P-56V88652NF3688233NCYUEMI'); // Renders the PayPal button
+</script>
                     </div>
                     <!-- Impacto -->
                     <div class="bg-white rounded-2xl p-8 flex flex-col border border-gray-200/80">
@@ -212,7 +233,28 @@
                             <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">✓</span>Sección de Blog para marketing.</li>
                             <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">✓</span>Posicionamiento SEO inicial.</li>
                         </ul>
-                        <a href="#" class="w-full text-center bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-colors">Comenzar</a>
+
+                        <div id="paypal-button-container-P-9DB8761963542112PNCYUFHY"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=AZhuHaoRMy0PKJJbcCBDANsX-jjoCCBLzhEEvFB7v5oVPxRH8YIxuP3P4_Zap0eEOU-wvzYstPQ-kjD4&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script>
+  paypal.Buttons({
+      style: {
+          shape: 'pill',
+          color: 'black',
+          layout: 'vertical',
+          label: 'subscribe'
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-9DB8761963542112PNCYUFHY'
+        });
+      },
+      onApprove: function(data, actions) {
+        alert(data.subscriptionID); // You can add optional success message for the subscriber here
+      }
+  }).render('#paypal-button-container-P-9DB8761963542112PNCYUFHY'); // Renders the PayPal button
+</script>
                     </div>
                 </div>
             </div>
@@ -299,5 +341,6 @@
 
 </body>
 </html>
+
 
 
