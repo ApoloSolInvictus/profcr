@@ -201,8 +201,8 @@
                             <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span>Ideal para mostrar tu trabajo.</li>
                         </ul>
 
-                        <div id="paypal-button-container-P-56V88652NF3688233NCYUEMI"></div>
-<script src="https://www.paypal.com/sdk/js?client-id=AZhuHaoRMy0PKJJbcCBDANsX-jjoCCBLzhEEvFB7v5oVPxRH8YIxuP3P4_Zap0eEOU-wvzYstPQ-kjD4&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+                        <div id="paypal-button-container-P-1T955501L66107610NCYUMBI"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=BAA-fR6Nxr57jD0hezOeV4191FwODJGwI2M5gzzl-E8ePX7oNgYMIyqj8S6JWir_qK05IAjIcIDQj76vMU&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
 <script>
   paypal.Buttons({
       style: {
@@ -214,13 +214,13 @@
       createSubscription: function(data, actions) {
         return actions.subscription.create({
           /* Creates the subscription */
-          plan_id: 'P-56V88652NF3688233NCYUEMI'
+          plan_id: 'P-1T955501L66107610NCYUMBI'
         });
       },
       onApprove: function(data, actions) {
         alert(data.subscriptionID); // You can add optional success message for the subscriber here
       }
-  }).render('#paypal-button-container-P-56V88652NF3688233NCYUEMI'); // Renders the PayPal button
+  }).render('#paypal-button-container-P-1T955501L66107610NCYUMBI'); // Renders the PayPal button
 </script>
                     </div>
                     <!-- Impacto -->
@@ -341,6 +341,7 @@
 
 </body>
 </html>
+
 
 
 
