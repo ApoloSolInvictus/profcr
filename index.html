@@ -112,11 +112,35 @@
         .chat-bubble {
             max-width: 75%;
         }
+        /* Typing indicator animation */
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            float: left;
+            margin: 0 1px;
+            background-color: #9E9EA1;
+            display: block;
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: 1s blink infinite .3333s;
+        }
+        .typing-indicator span:nth-child(2) {
+            animation-delay: .6666s;
+        }
+        .typing-indicator span:nth-child(3) {
+            animation-delay: .9999s;
+        }
+        @keyframes blink {
+            50% {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
 
-    <header class="header-blur sticky top-0 z-40">
+    <!-- Header -->
+    <header class="header-blur sticky top-0 z-30">
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="#">
                 <img src="images/logo.png" alt="ProfCR Logo" class="h-12 w-auto">
@@ -145,6 +169,7 @@
         </nav>
     </header>
 
+    <!-- Menú Móvil Desplegable -->
     <div id="menu-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden menu-backdrop"></div>
     <div id="mobile-menu" class="fixed top-0 right-0 h-full w-72 bg-white/80 backdrop-blur-lg z-50 mobile-menu p-6 shadow-xl flex flex-col">
         <div class="flex justify-end mb-8">
@@ -190,8 +215,9 @@
             </a>
         </div>
     </div>
-
-    <div id="popup-container" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+    
+    <!-- PopUp Promocional -->
+    <div id="popup-container" class="fixed inset-0 z-40 flex items-center justify-center p-4 hidden">
         <div id="popup-backdrop" class="fixed inset-0 bg-black/50 backdrop-blur-sm popup-backdrop opacity-0"></div>
         <div id="popup-box" class="popup-container bg-black text-white w-full max-w-md p-8 rounded-2xl shadow-2xl text-center relative opacity-0 transform scale-95">
             <button id="popup-close-btn" class="absolute top-4 right-4 text-white/50 hover:text-white transition-colors">
@@ -204,6 +230,7 @@
         </div>
     </div>
 
+    <!-- Main Content -->
     <main>
         <section id="directorio" class="text-center py-24 md:py-32 px-6 bg-white">
             <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-6">El profesional que buscas, <br>justo aquí.</h1>
@@ -339,6 +366,45 @@
         </div>
     </footer>
 
+    <!-- Chatbot Widget -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <!-- Botón del Chat -->
+        <button id="chat-toggle-btn" class="bg-blue-600 text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform">
+            <svg id="chat-icon-open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+            <svg id="chat-icon-close" class="w-8 h-8 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <!-- Ventana del Chat -->
+        <div id="chat-window" class="chat-widget absolute bottom-20 right-0 w-80 md:w-96 bg-white rounded-2xl shadow-2xl border border-gray-200 hidden opacity-0 transform translate-y-4">
+            <!-- Header del Chat -->
+            <div class="bg-gray-50 p-4 rounded-t-2xl flex items-center space-x-3 border-b">
+                <div class="bg-blue-600 p-2 rounded-full text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                </div>
+                <div>
+                    <p class="font-bold text-gray-800">Asistente Gemini</p>
+                    <p class="text-xs text-green-500 font-semibold">En línea</p>
+                </div>
+            </div>
+
+            <!-- Cuerpo de Mensajes -->
+            <div id="chat-messages" class="p-4 h-80 overflow-y-auto space-y-4">
+                <!-- Mensajes se agregarán dinámicamente -->
+            </div>
+
+            <!-- Input de Mensaje -->
+            <div class="p-4 border-t">
+                <form id="chat-form" class="relative">
+                    <input id="chat-input" type="text" placeholder="Escribe tu pregunta..." class="w-full pl-4 pr-12 py-2 bg-gray-100 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" autocomplete="off">
+                    <button id="chat-send-btn" type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors disabled:bg-blue-400">
+                        <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
     <script src="https://www.paypal.com/sdk/js?client-id=AZhuHaoRMy0PKJJbcCBDANsX-jjoCCBLzhEEvFB7v5oVPxRH8YIxuP3P4_Zap0eEOU-wvzYstPQ-kjD4&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
 
     <script>
@@ -453,19 +519,30 @@
             });
         });
 
-        desktopPlansBtn.addEventListener('mouseenter', () => {
-            desktopPlansSubmenu.classList.remove('hidden');
-            setTimeout(() => {
-                desktopPlansSubmenu.classList.remove('opacity-0', '-translate-y-2');
-            }, 10);
+        desktopPlansBtn.addEventListener('click', () => {
+            const isHidden = desktopPlansSubmenu.classList.contains('hidden');
+            if (isHidden) {
+                desktopPlansSubmenu.classList.remove('hidden');
+                setTimeout(() => {
+                    desktopPlansSubmenu.classList.remove('opacity-0', '-translate-y-2');
+                }, 10);
+            } else {
+                desktopPlansSubmenu.classList.add('opacity-0', '-translate-y-2');
+                setTimeout(() => {
+                    desktopPlansSubmenu.classList.add('hidden');
+                }, 300);
+            }
         });
 
-        document.getElementById('desktop-plans-menu-container').addEventListener('mouseleave', () => {
-             desktopPlansSubmenu.classList.add('opacity-0', '-translate-y-2');
-            setTimeout(() => {
-                desktopPlansSubmenu.classList.add('hidden');
-            }, 300);
+        document.addEventListener('click', (e) => {
+            if (!document.getElementById('desktop-plans-menu-container').contains(e.target)) {
+                 desktopPlansSubmenu.classList.add('opacity-0', '-translate-y-2');
+                setTimeout(() => {
+                    desktopPlansSubmenu.classList.add('hidden');
+                }, 300);
+            }
         });
+
 
         // --- LÓGICA DE BOTONES PAYPAL ---
         paypal.Buttons({
@@ -532,7 +609,4 @@
 
         setTimeout(showPopup, 9000);
     </script>
-
-</body>
-</html>
 
