@@ -336,6 +336,7 @@
         </section>
     </main>
 
+    <!-- Footer -->
     <footer id="contacto" class="bg-white">
         <div class="container mx-auto px-6 py-16 text-center text-gray-600 border-t border-gray-200">
             <a href="#">
@@ -367,7 +368,7 @@
     </footer>
 
     <!-- Chatbot Widget -->
-    <div class="fixed bottom-6 right-6 z-50">
+    <div class="fixed bottom-6 right-6 z-[60]">
         <!-- Botón del Chat -->
         <button id="chat-toggle-btn" class="bg-blue-600 text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform">
             <svg id="chat-icon-open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
@@ -389,7 +390,12 @@
 
             <!-- Cuerpo de Mensajes -->
             <div id="chat-messages" class="p-4 h-80 overflow-y-auto space-y-4">
-                <!-- Mensajes se agregarán dinámicamente -->
+                <!-- Mensaje de bienvenida de la IA -->
+                <div class="flex justify-start">
+                    <div class="chat-bubble bg-gray-200 text-gray-800 p-3 rounded-lg rounded-bl-none">
+                        <p>¡Hola! Soy el asistente de ProfCR. ¿Cómo puedo ayudarte a encontrar un profesional o a obtener tu propio sitio web?</p>
+                    </div>
+                </div>
             </div>
 
             <!-- Input de Mensaje -->
@@ -489,4 +495,270 @@
                 planesSubmenu.style.maxHeight = planesSubmenu.scrollHeight + 'px';
                 planesChevron.style.transform = 'rotate(180deg)';
             }
+        });
+
+        function openMenu() {
+            backdrop.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                backdrop.style.opacity = '1';
+                mobileMenu.classList.add('is-open');
+            }, 10);
+        }
+
+        function closeMenu() {
+            backdrop.style.opacity = '0';
+            mobileMenu.classList.remove('is-open');
+            setTimeout(() => {
+                backdrop.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        menuBtn.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        backdrop.addEventListener('click', closeMenu);
+        menuLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (e.target.closest('#planes-toggle-btn')) return;
+                closeMenu();
+            });
+        });
+
+        desktopPlansBtn.addEventListener('click', () => {
+            const isHidden = desktopPlansSubmenu.classList.contains('hidden');
+            if (isHidden) {
+                desktopPlansSubmenu.classList.remove('hidden');
+                setTimeout(() => {
+                    desktopPlansSubmenu.classList.remove('opacity-0', '-translate-y-2');
+                }, 10);
+            } else {
+                desktopPlansSubmenu.classList.add('opacity-0', '-translate-y-2');
+                setTimeout(() => {
+                    desktopPlansSubmenu.classList.add('hidden');
+                }, 300);
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!document.getElementById('desktop-plans-menu-container').contains(e.target)) {
+                 desktopPlansSubmenu.classList.add('opacity-0', '-translate-y-2');
+                setTimeout(() => {
+                    desktopPlansSubmenu.classList.add('hidden');
+                }, 300);
+            }
+        });
+
+
+        // --- LÓGICA DE BOTONES PAYPAL ---
+        paypal.Buttons({
+            style: { shape: 'pill', color: 'blue', layout: 'vertical', label: 'subscribe' },
+            createSubscription: function(data, actions) {
+                return actions.subscription.create({ plan_id: 'P-8KD45673HW2618100NCYUADY' });
+            },
+            onApprove: function(data, actions) { alert('Suscripción completada: ' + data.subscriptionID); }
+        }).render('#paypal-button-container-P-8KD45673HW2618100NCYUADY');
+
+        paypal.Buttons({
+            style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'subscribe' },
+            createSubscription: function(data, actions) {
+                return actions.subscription.create({ plan_id: 'P-1T955501L66107610NCYUMBI' });
+            },
+            onApprove: function(data, actions) { alert('Suscripción completada: ' + data.subscriptionID); }
+        }).render('#paypal-button-container-P-1T955501L66107610NCYUMBI');
+
+        paypal.Buttons({
+            style: { shape: 'pill', color: 'black', layout: 'vertical', label: 'subscribe' },
+            createSubscription: function(data, actions) {
+                return actions.subscription.create({ plan_id: 'P-9DB8761963542112PNCYUFHY' });
+            },
+            onApprove: function(data, actions) { alert('Suscripción completada: ' + data.subscriptionID); }
+        }).render('#paypal-button-container-P-9DB8761963542112PNCYUFHY');
+
+        // --- LÓGICA DEL POPUP ---
+        const popupContainer = document.getElementById('popup-container');
+        const popupBackdrop = document.getElementById('popup-backdrop');
+        const popupBox = document.getElementById('popup-box');
+        const popupCloseBtn = document.getElementById('popup-close-btn');
+        const popupActionBtn = document.getElementById('popup-action-btn');
+
+        const showPopup = () => {
+            let viewCount = localStorage.getItem('profcrPopupViewCount') || 0;
+            const hasClicked = localStorage.getItem('profcrPopupClicked') === 'true';
+
+            if (viewCount < 3 && !hasClicked) {
+                popupContainer.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => {
+                    popupBackdrop.classList.remove('opacity-0');
+                    popupBox.classList.remove('opacity-0', 'scale-95');
+                }, 10);
+                localStorage.setItem('profcrPopupViewCount', ++viewCount);
+            }
+        };
+
+        const hidePopup = (setClicked = false) => {
+            popupBackdrop.classList.add('opacity-0');
+            popupBox.classList.add('opacity-0', 'scale-95');
+            if (setClicked) {
+                localStorage.setItem('profcrPopupClicked', 'true');
+            }
+            setTimeout(() => {
+                popupContainer.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        };
+        
+        popupCloseBtn.addEventListener('click', () => hidePopup());
+        popupActionBtn.addEventListener('click', () => hidePopup(true));
+        popupBackdrop.addEventListener('click', () => hidePopup());
+
+        setTimeout(showPopup, 9000);
+
+        // --- LÓGICA DEL CHATBOT CON CONEXIÓN A GEMINI ---
+        
+        // 1. INSERTA TU API KEY AQUÍ
+        const GEMINI_API_KEY = "TU_API_KEY_DE_GEMINI_AQUI";
+
+        const chatToggleBtn = document.getElementById('chat-toggle-btn');
+        const chatWindow = document.getElementById('chat-window');
+        const chatIconOpen = document.getElementById('chat-icon-open');
+        const chatIconClose = document.getElementById('chat-icon-close');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatSendBtn = document.getElementById('chat-send-btn');
+        
+        let conversationHistory = [];
+
+        // Función para abrir/cerrar el chat
+        chatToggleBtn.addEventListener('click', () => {
+            const isHidden = chatWindow.classList.contains('hidden');
+            if (isHidden) {
+                chatWindow.classList.remove('hidden');
+                setTimeout(() => {
+                    chatWindow.classList.remove('opacity-0', 'translate-y-4');
+                }, 10);
+                chatIconOpen.classList.add('hidden');
+                chatIconClose.classList.remove('hidden');
+            } else {
+                chatWindow.classList.add('opacity-0', 'translate-y-4');
+                setTimeout(() => {
+                    chatWindow.classList.add('hidden');
+                }, 300);
+                chatIconOpen.classList.remove('hidden');
+                chatIconClose.classList.add('hidden');
+            }
+        });
+
+        // Función para añadir mensajes al chat
+        const addMessage = (text, sender) => {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('flex', sender === 'user' ? 'justify-end' : 'justify-start');
+            
+            const bubble = document.createElement('div');
+            bubble.classList.add('chat-bubble', 'p-3', 'rounded-lg');
+            bubble.classList.add(sender === 'user' ? 'bg-blue-600' : 'bg-gray-200', sender === 'user' ? 'text-white' : 'text-gray-800');
+            bubble.classList.add(sender === 'user' ? 'rounded-br-none' : 'rounded-bl-none');
+            bubble.textContent = text;
+            
+            messageDiv.appendChild(bubble);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll
+        };
+        
+        // Función para mostrar el indicador de "escribiendo"
+        const showTypingIndicator = () => {
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.classList.add('flex', 'justify-start');
+            typingDiv.innerHTML = `
+                <div class="chat-bubble bg-gray-200 p-3 rounded-lg rounded-bl-none">
+                    <div class="typing-indicator">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>`;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        };
+        
+        // Función para quitar el indicador de "escribiendo"
+        const hideTypingIndicator = () => {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        };
+
+        // Función para llamar a la API de Gemini
+        const callGeminiAPI = async (prompt) => {
+            chatSendBtn.disabled = true;
+            showTypingIndicator();
+
+            const systemPrompt = `Eres "Gemini", el asistente virtual de ProfCR.com, un estudio de diseño web y marketing digital en Costa Rica. Tu creador es Apolo de W Studio. Tu propósito es responder preguntas sobre los servicios de ProfCR, explicar los planes y guiar a los usuarios para que obtengan su propio sitio web. Eres amable, profesional y directo. No respondas preguntas que no estén relacionadas con ProfCR o sus servicios. Los planes son: Esencial ($29/mes, una página), Crecimiento ($49/mes, hasta 5 páginas) e Impacto ($79/mes, incluye blog y SEO). Todos los planes incluyen dominio y correo profesional gratis.`;
+            
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${GEMINI_API_KEY}`;
+            
+            const payload = {
+                contents: [
+                    ...conversationHistory,
+                    { role: "user", parts: [{ text: prompt }] }
+                ],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error de API: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+                let text = "Lo siento, no pude procesar tu solicitud en este momento. Inténtalo de nuevo.";
+
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    text = candidate.content.parts[0].text;
+                }
+                
+                // Actualizar historial de conversación
+                conversationHistory.push({ role: "user", parts: [{ text: prompt }] });
+                conversationHistory.push({ role: "model", parts: [{ text: text }] });
+
+                hideTypingIndicator();
+                addMessage(text, 'ia');
+                
+            } catch (error) {
+                console.error("Error al llamar a la API de Gemini:", error);
+                hideTypingIndicator();
+                addMessage("Hubo un error al conectar con el asistente. Por favor, intenta más tarde.", 'ia');
+            } finally {
+                 chatSendBtn.disabled = false;
+                 chatInput.focus();
+            }
+        };
+
+        // Manejar envío del formulario
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userInput = chatInput.value.trim();
+            if (userInput && GEMINI_API_KEY !== "AIzaSyDikFG1nyLCKltit7mOerz1qoLUgHDyVSE") {
+                addMessage(userInput, 'user');
+                callGeminiAPI(userInput);
+                chatInput.value = '';
+            } else if (GEMINI_API_KEY === "AIzaSyDikFG1nyLCKltit7mOerz1qoLUgHDyVSE") {
+                addMessage("El chatbot no está activado. Falta la API Key.", 'ia');
+            }
+        });
+
+    </script>
+</body>
+</html>
 
