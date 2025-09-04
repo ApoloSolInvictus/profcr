@@ -569,6 +569,11 @@
             onApprove: function(data, actions) { alert('Suscripción completada: ' + data.subscriptionID); }
         }).render('#paypal-button-container-P-9DB8761963542112PNCYUFHY');
 
+        // --- LÓGICA DEL CHATBOT CON CONEXIÓN A GEMINI ---
+
+        // 1. INSERTA TU API KEY AQUÍ
+        const GEMINI_API_KEY = "AIzaSyDikFG1nyLCKltit7mOerz1qoLUgHDyVSE";
+
         // --- LÓGICA DEL POPUP ---
         const popupContainer = document.getElementById('popup-container');
         const popupBackdrop = document.getElementById('popup-backdrop');
@@ -609,4 +614,5 @@
 
         setTimeout(showPopup, 9000);
     </script>
+
 
