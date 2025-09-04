@@ -12,7 +12,7 @@
     <link rel="manifest" href="/my-favicon/site.webmanifest" />
     
     <!-- SEO Meta Tags Optimizados -->
-    <title>ProfCR - Marketing Profesional</title>
+    <title>ProfCR - Marketing Profesional y Directorio de Servicios</title>
     <meta name="description" content="Conecta con los mejores profesionales y servicios de Costa Rica. Creamos tu sitio web y potenciamos tu presencia digital.">
     <link rel="canonical" href="https://profcr.com/" />
 
@@ -76,7 +76,6 @@
             animation: fade-in-up 0.8s ease-out forwards;
             opacity: 0;
         }
-        /* Estilos para el menú móvil */
         .mobile-menu {
             transition: transform 0.3s ease-in-out;
             transform: translateX(100%);
@@ -93,7 +92,6 @@
             border-radius: 4px;
             font-size: 0.9em;
         }
-        /* Transición para los submenús */
         .submenu {
             max-height: 0;
             overflow: hidden;
@@ -102,18 +100,22 @@
         .desktop-submenu {
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
-        /* Estilos para el PopUp */
         .popup-backdrop {
             transition: opacity 0.3s ease-in-out;
         }
         .popup-container {
             transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
         }
+        .chat-widget {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        .chat-bubble {
+            max-width: 75%;
+        }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Header -->
     <header class="header-blur sticky top-0 z-40">
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="#">
@@ -122,7 +124,6 @@
             <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-700">
                 <a href="#directorio" class="hover:text-blue-600 transition-colors">Directorio</a>
                 <a href="#beneficios" class="hover:text-blue-600 transition-colors">Beneficios</a>
-                <!-- Menú Desplegable de Planes para Desktop -->
                 <div class="relative" id="desktop-plans-menu-container">
                     <button id="desktop-plans-btn" class="flex items-center hover:text-blue-600 transition-colors">
                         <span>Planes</span>
@@ -136,7 +137,6 @@
                 </div>
                  <a href="#planes" class="bg-blue-600 text-white text-sm font-semibold py-2 px-4 rounded-full hover:bg-blue-700 transition-colors">Obtener Sitio Web</a>
             </div>
-            <!-- Botón del Menú Móvil -->
             <div class="md:hidden">
                 <button id="menu-btn" class="text-gray-700 focus:outline-none p-2 -mr-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -145,7 +145,6 @@
         </nav>
     </header>
 
-    <!-- Menú Móvil Desplegable -->
     <div id="menu-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden menu-backdrop"></div>
     <div id="mobile-menu" class="fixed top-0 right-0 h-full w-72 bg-white/80 backdrop-blur-lg z-50 mobile-menu p-6 shadow-xl flex flex-col">
         <div class="flex justify-end mb-8">
@@ -156,7 +155,6 @@
         <nav class="flex flex-col space-y-6 text-lg text-center flex-grow">
             <a href="#directorio" class="text-gray-800 hover:text-blue-600 transition-colors menu-link">Directorio</a>
             <a href="#beneficios" class="text-gray-800 hover:text-blue-600 transition-colors menu-link">Beneficios</a>
-            <!-- Menú Desplegable de Planes -->
             <div>
                 <button id="planes-toggle-btn" class="w-full flex items-center justify-center text-gray-800 hover:text-blue-600 transition-colors">
                     <span>Planes</span>
@@ -172,23 +170,18 @@
             </div>
             <a href="#planes" class="mt-4 inline-block bg-blue-600 text-white text-sm font-semibold py-3 px-6 rounded-full hover:bg-blue-700 transition-colors menu-link">Obtener Sitio Web</a>
         </nav>
-        <!-- Footer del Menú Móvil -->
         <div class="mt-auto pt-6 border-t border-gray-200/80">
             <div class="flex justify-center space-x-6 mb-6">
-                <!-- Facebook -->
                 <a href="https://www.facebook.com/amarkstudios/" target="_blank" class="text-gray-500 hover:text-blue-600 transition-colors">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
                 </a>
-                <!-- X (Twitter) -->
                 <a href="https://x.com/amarkstudio" target="_blank" class="text-gray-500 hover:text-gray-900 transition-colors">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 </a>
-                <!-- Instagram -->
                 <a href="https://www.instagram.com/amarkstudio/" target="_blank" class="text-gray-500 hover:text-pink-600 transition-colors">
                      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2c2.828 0 3.23.012 4.352.063c1.096.05 1.83.218 2.47.464c.652.25 1.21.583 1.745 1.12c.537.536.87 1.092 1.12 1.744c.246.64.414 1.375.464 2.47c.05 1.123.063 1.524.063 4.352s-.012 3.23-.063 4.352c-.05 1.096-.218 1.83-.464 2.47c-.25.652-.583 1.21-1.12 1.745c-.536.537-1.092.87-1.744 1.12c-.64.246-1.375.414-2.47.464c-1.123.05-1.524.063-4.352.063s-3.23-.012-4.352-.063c-1.096-.05-1.83-.218-2.47-.464c-.652-.25-1.21-.583-1.745-1.12c-.537-.536-.87-1.092-1.12-1.744c-.246-.64-.414-1.375-.464-2.47c-.05-1.123-.063-1.524-.063-4.352s.012-3.23.063-4.352c.05-1.096.218-1.83.464-2.47c.25-.652.583-1.21 1.12-1.745c.536-.537 1.092-.87 1.744-1.12c.64-.246 1.375-.414 2.47-.464C8.77 2.013 9.172 2 12 2zm0 1.8c-2.775 0-3.15.01-4.25.06c-1.012.046-1.63.208-2.09.4c-.48.198-.86.46-1.25.85c-.39.39-.652.77-.85 1.25c-.192.46-.354 1.078-.4 2.09c-.05 1.1-.06 1.475-.06 4.25s.01 3.15.06 4.25c.046 1.012.208 1.63.4 2.09c.198.48.46.86.85 1.25c.39.39.77.652 1.25.85c.46.192 1.078.354 2.09.4c1.1.05 1.475.06 4.25.06s3.15-.01 4.25-.06c1.012-.046 1.63-.208 2.09-.4c.48-.198.86-.46 1.25-.85c.39-.39.652-.77.85-1.25c.192-.46.354-1.078.4-2.09c.05-1.1.06-1.475.06-4.25s-.01-3.15-.06-4.25c-.046-1.012-.208-1.63-.4-2.09c-.198-.48-.46-.86-.85-1.25c-.39-.39-.77-.652-1.25-.85c-.46-.192-1.078-.354-2.09-.4C15.15 3.81 14.775 3.8 12 3.8zm0 4.5a3.7 3.7 0 100 7.4a3.7 3.7 0 000-7.4zm0 6c-1.215 0-2.2-1.03-2.2-2.3s.985-2.3 2.2-2.3s2.2 1.03 2.2 2.3s-.985 2.3-2.2 2.3zm4.336-6.42a.9.9 0 100-1.8a.9.9 0 000 1.8z" clip-rule="evenodd" /></svg>
                 </a>
-                <!-- TikTok -->
-                 <a href="https://www.tiktok.com/@amarkstudio" target="_blank" class="text-gray-500 hover:text-gray-900 transition-colors">
+                <a href="https://www.tiktok.com/@amarkstudio" target="_blank" class="text-gray-500 hover:text-gray-900 transition-colors">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-1.7v6.33A6.81 6.81 0 0 1 9.12 16a6.27 6.27 0 0 1-6.16-7.11 6.1 6.1 0 0 1 6.08-5.16v2.1a3.9 3.9 0 0 0-3.8 4.54 4.02 4.02 0 0 0 4.1 3.51 4.08 4.08 0 0 0 4.05-4.13V3h1.7a2.58 2.58 0 0 0 2.5 2.82z"/></svg>
                 </a>
             </div>
@@ -198,7 +191,6 @@
         </div>
     </div>
 
-    <!-- PopUp Promocional -->
     <div id="popup-container" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
         <div id="popup-backdrop" class="fixed inset-0 bg-black/50 backdrop-blur-sm popup-backdrop opacity-0"></div>
         <div id="popup-box" class="popup-container bg-black text-white w-full max-w-md p-8 rounded-2xl shadow-2xl text-center relative opacity-0 transform scale-95">
@@ -212,9 +204,7 @@
         </div>
     </div>
 
-    <!-- Main Content -->
     <main>
-        <!-- Hero & Search Section -->
         <section id="directorio" class="text-center py-24 md:py-32 px-6 bg-white">
             <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-6">El profesional que buscas, <br>justo aquí.</h1>
             <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-600 mb-10">Conecta con los mejores profesionales y servicios de Costa Rica. Fácil, rápido y confiable.</p>
@@ -223,18 +213,14 @@
             </div>
         </section>
 
-        <!-- Search Results Section -->
         <section class="container mx-auto px-6 pb-24 -mt-16">
             <h2 id="results-title" class="text-center text-sm font-semibold tracking-widest text-gray-500 uppercase mb-8">Últimos profesionales agregados</h2>
             <div id="results-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- JS insertará las tarjetas aquí -->
             </div>
         </section>
 
-        <!-- Showcase Section -->
         <section id="beneficios" class="py-24 md:py-32 px-6 bg-gray-50">
             <div class="container mx-auto space-y-24">
-                <!-- Laptop -->
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div class="text-center lg:text-left">
                         <h3 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Productividad en pantalla grande.</h3>
@@ -244,7 +230,6 @@
                         <img src="images/laptop.png" alt="Sitio web en laptop" class="max-w-full h-auto">
                     </div>
                 </div>
-                <!-- Tablet -->
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div class="lg:order-2 text-center lg:text-left">
                         <h3 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Versatilidad en tus manos.</h3>
@@ -254,7 +239,6 @@
                         <img src="images/tablet.png" alt="Sitio web en tablet" class="max-w-sm md:max-w-md h-auto">
                     </div>
                 </div>
-                <!-- Phone -->
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div class="text-center lg:text-left">
                         <h3 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Conexión instantánea.</h3>
@@ -267,24 +251,21 @@
             </div>
         </section>
 
-        <!-- Human + AI Section -->
         <section class="py-24 md:py-32 px-6 bg-white text-center">
             <div class="container mx-auto">
                 <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">La Fusión Perfecta: <br>Creatividad Humana, Velocidad IA.</h2>
-                <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-12"><a href="https://wstudiocr.com" class="text-red-600">W Studio</a> nace de la unión entre la visión estratégica de Apolo y la ejecución de Gemini. Esta sinergia nos permite crear sitios web de calidad superior en tiempo récord. Ofrecemos un producto sostenible y de vanguardia, haciendo el diseño profesional accesible para todos.</p>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-12"><a href="https://wstudiocr.com" class="text-red-600 hover:underline">W Studio</a> nace de la unión entre la visión estratégica de Apolo y la ejecución de Gemini. Esta sinergia nos permite crear sitios web de calidad superior en tiempo récord. Ofrecemos un producto sostenible y de vanguardia, haciendo el diseño profesional accesible para todos.</p>
                 <div class="flex justify-center items-center h-80">
                     <img src="images/humanai.png" alt="Concepto del fin del papel" class="max-h-full">
                 </div>
             </div>
         </section>
         
-        <!-- Plans Section -->
         <section id="planes" class="py-24 bg-gray-50">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-4xl font-bold tracking-tight mb-4">Simple, transparente y sin sorpresas.</h2>
                 <p class="max-w-2xl mx-auto text-lg text-gray-600 mb-16">Elige el plan que impulse tu crecimiento. Sin contratos, cancela cuando quieras.</p>
                 <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto text-left">
-                    <!-- Esencial -->
                     <div class="bg-white rounded-2xl p-8 flex flex-col border border-gray-200/80">
                         <h3 class="text-lg font-semibold mb-2">Esencial</h3>
                         <p class="text-gray-600 mb-6">Tu tarjeta de visita digital.</p>
@@ -296,7 +277,6 @@
                         </ul>
                         <div id="paypal-button-container-P-8KD45673HW2618100NCYUADY"></div>
                     </div>
-                    <!-- Crecimiento -->
                     <div class="bg-gray-800 text-white rounded-2xl p-8 flex flex-col">
                          <h3 class="text-lg font-semibold mb-2">Crecimiento <span class="text-xs bg-blue-500 text-white font-bold px-2 py-1 rounded-full ml-2">Popular</span></h3>
                         <p class="text-gray-400 mb-6">La solución completa para crecer.</p>
@@ -308,7 +288,6 @@
                         </ul>
                         <div id="paypal-button-container-P-1T955501L66107610NCYUMBI"></div>
                     </div>
-                    <!-- Impacto -->
                     <div class="bg-white rounded-2xl p-8 flex flex-col border border-gray-200/80">
                         <h3 class="text-lg font-semibold mb-2">Impacto</h3>
                         <p class="text-gray-600 mb-6">Conviértete en un referente.</p>
@@ -321,41 +300,34 @@
                         <div id="paypal-button-container-P-9DB8761963542112PNCYUFHY"></div>
                     </div>
                 </div>
-                <!-- NUEVA SECCIÓN DE BENEFICIO GRATIS -->
                 <div class="mt-12 max-w-4xl mx-auto text-center">
                     <p class="text-sm text-gray-600">
-                        <span class="font-semibold text-gray-800">¡Beneficio Adicional!</span> Todos nuestros planes incluyen un dominio personalizado (ej: <code>minegocio.profcr.com</code>) y un correo profesional (ej: <code>minegocio@profcr.com</code>) sin costo adicional para una imagen de marca impecable.
+                        <span class="font-semibold text-gray-800">¡Beneficio Adicional!</span> Todos nuestros planes incluyen un dominio personalizado (ej: <code>minegocio.profcr.com</code>) y un correo profesional (ej: <code>info@minegocio.profcr.com</code>) sin costo adicional para una imagen de marca impecable.
                     </p>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer id="contacto" class="bg-white">
         <div class="container mx-auto px-6 py-16 text-center text-gray-600 border-t border-gray-200">
             <a href="#">
                 <img src="images/logo.png" alt="ProfCR Logo" class="h-13 w-auto mx-auto mb-6">
             </a>
     
-            <!-- Iconos de Redes Sociales -->
             <div class="flex justify-center space-x-6 mb-8">
-                <!-- Facebook -->
                 <a href="https://www.facebook.com/amarkstudios/" target="_blank" class="text-gray-400 hover:text-blue-600 transition-colors">
                     <span class="sr-only">Facebook</span>
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
                 </a>
-                <!-- X (Twitter) -->
                 <a href="https://x.com/amarkstudio" target="_blank" class="text-gray-400 hover:text-gray-900 transition-colors">
                     <span class="sr-only">X</span>
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 </a>
-                <!-- Instagram -->
                 <a href="https://www.instagram.com/amarkstudio/" target="_blank" class="text-gray-400 hover:text-pink-600 transition-colors">
                     <span class="sr-only">Instagram</span>
                      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2c2.828 0 3.23.012 4.352.063c1.096.05 1.83.218 2.47.464c.652.25 1.21.583 1.745 1.12c.537.536.87 1.092 1.12 1.744c.246.64.414 1.375.464 2.47c.05 1.123.063 1.524.063 4.352s-.012 3.23-.063 4.352c-.05 1.096-.218 1.83-.464 2.47c-.25.652-.583 1.21-1.12 1.745c-.536.537-1.092.87-1.744 1.12c-.64.246-1.375.414-2.47.464c-1.123.05-1.524.063-4.352.063s-3.23-.012-4.352-.063c-1.096-.05-1.83-.218-2.47-.464c-.652-.25-1.21-.583-1.745-1.12c-.537-.536-.87-1.092-1.12-1.744c-.246-.64-.414-1.375-.464-2.47c-.05-1.123-.063-1.524-.063-4.352s.012-3.23.063-4.352c.05-1.096.218-1.83.464-2.47c.25-.652.583-1.21 1.12-1.745c.536-.537 1.092-.87 1.744-1.12c.64-.246 1.375-.414 2.47-.464C8.77 2.013 9.172 2 12 2zm0 1.8c-2.775 0-3.15.01-4.25.06c-1.012.046-1.63.208-2.09.4c-.48.198-.86.46-1.25.85c-.39.39-.652.77-.85 1.25c-.192.46-.354 1.078-.4 2.09c-.05 1.1-.06 1.475-.06 4.25s.01 3.15.06 4.25c.046 1.012.208 1.63.4 2.09c.198.48.46.86.85 1.25c.39.39.77.652 1.25.85c.46.192 1.078.354 2.09.4c1.1.05 1.475.06 4.25.06s3.15-.01 4.25-.06c1.012-.046 1.63-.208 2.09-.4c.48-.198.86-.46 1.25-.85c.39-.39.652-.77.85-1.25c.192-.46.354-1.078.4-2.09c.05-1.1.06-1.475.06-4.25s-.01-3.15-.06-4.25c-.046-1.012-.208-1.63-.4-2.09c-.198-.48-.46-.86-.85-1.25c-.39-.39-.77-.652-1.25-.85c-.46-.192-1.078-.354-2.09-.4C15.15 3.81 14.775 3.8 12 3.8zm0 4.5a3.7 3.7 0 100 7.4a3.7 3.7 0 000-7.4zm0 6c-1.215 0-2.2-1.03-2.2-2.3s.985-2.3 2.2-2.3s2.2 1.03 2.2 2.3s-.985 2.3-2.2 2.3zm4.336-6.42a.9.9 0 100-1.8a.9.9 0 000 1.8z" clip-rule="evenodd" /></svg>
                 </a>
-                <!-- TikTok -->
                 <a href="https://www.tiktok.com/@amarkstudio" target="_blank" class="text-gray-400 hover:text-gray-900 transition-colors">
                     <span class="sr-only">TikTok</span>
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-1.7v6.33A6.81 6.81 0 0 1 9.12 16a6.27 6.27 0 0 1-6.16-7.11 6.1 6.1 0 0 1 6.08-5.16v2.1a3.9 3.9 0 0 0-3.8 4.54 4.02 4.02 0 0 0 4.1 3.51 4.08 4.08 0 0 0 4.05-4.13V3h1.7a2.58 2.58 0 0 0 2.5 2.82z"/></svg>
@@ -363,16 +335,12 @@
             </div>
     
             <p class="text-sm max-w-md mx-auto mb-8">Impulsando a los profesionales de Costa Rica con tecnología y diseño de clase mundial.</p>
-            <p class="text-xs text-gray-500">&copy; 2025 <a href="https://wstudiocr.com" class="text-red-600">W Studio</a>. Creado por Apolo y <a href="https://gemini.google.com/" class="text-red-600">Gemini</a>.</p>
+            <p class="text-xs text-gray-500">&copy; 2025 <a href="https://wstudiocr.com" class="text-red-600 hover:underline">W Studio</a>. Creado por Apolo y <a href="https://gemini.google.com/" class="text-red-600 hover:underline">Gemini</a>.</p>
         </div>
     </footer>
 
-
-
-    <!-- PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=AZhuHaoRMy0PKJJbcCBDANsX-jjoCCBLzhEEvFB7v5oVPxRH8YIxuP3P4_Zap0eEOU-wvzYstPQ-kjD4&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
 
-    <!-- JavaScript con Base de Datos en HTML, Búsqueda y Lógica de Menú/PayPal -->
     <script>
         // --- BASE DE DATOS LOCAL ---
         const database = [
@@ -445,9 +413,7 @@
         
         const desktopPlansBtn = document.getElementById('desktop-plans-btn');
         const desktopPlansSubmenu = document.getElementById('desktop-plans-submenu');
-        const desktopPlansChevron = document.getElementById('desktop-plans-chevron');
 
-        // Lógica para menú móvil
         planesToggleBtn.addEventListener('click', () => {
             const isOpen = planesSubmenu.style.maxHeight;
             if (isOpen && isOpen !== '0px') {
@@ -482,38 +448,24 @@
         backdrop.addEventListener('click', closeMenu);
         menuLinks.forEach(link => {
             link.addEventListener('click', (e) => {
-                // Previene el cierre del menú si se hace clic en el botón de despliegue
                 if (e.target.closest('#planes-toggle-btn')) return;
                 closeMenu();
             });
         });
 
-        // Lógica para menú de escritorio
-        desktopPlansBtn.addEventListener('click', () => {
-            const isHidden = desktopPlansSubmenu.classList.contains('hidden');
-            if (isHidden) {
-                desktopPlansSubmenu.classList.remove('hidden');
-                setTimeout(() => {
-                    desktopPlansSubmenu.classList.remove('opacity-0', '-translate-y-2');
-                }, 10);
-            } else {
-                desktopPlansSubmenu.classList.add('opacity-0', '-translate-y-2');
-                setTimeout(() => {
-                    desktopPlansSubmenu.classList.add('hidden');
-                }, 300);
-            }
+        desktopPlansBtn.addEventListener('mouseenter', () => {
+            desktopPlansSubmenu.classList.remove('hidden');
+            setTimeout(() => {
+                desktopPlansSubmenu.classList.remove('opacity-0', '-translate-y-2');
+            }, 10);
         });
 
-        // Cerrar menú de escritorio al hacer clic fuera
-        document.addEventListener('click', (e) => {
-            if (!document.getElementById('desktop-plans-menu-container').contains(e.target)) {
-                 desktopPlansSubmenu.classList.add('opacity-0', '-translate-y-2');
-                setTimeout(() => {
-                    desktopPlansSubmenu.classList.add('hidden');
-                }, 300);
-            }
+        document.getElementById('desktop-plans-menu-container').addEventListener('mouseleave', () => {
+             desktopPlansSubmenu.classList.add('opacity-0', '-translate-y-2');
+            setTimeout(() => {
+                desktopPlansSubmenu.classList.add('hidden');
+            }, 300);
         });
-
 
         // --- LÓGICA DE BOTONES PAYPAL ---
         paypal.Buttons({
@@ -578,17 +530,9 @@
         popupActionBtn.addEventListener('click', () => hidePopup(true));
         popupBackdrop.addEventListener('click', () => hidePopup());
 
-
-        // Mostrar el popup después de 9 segundos
         setTimeout(showPopup, 9000);
     </script>
 
 </body>
 </html>
-
-
-
-
-
-
 
