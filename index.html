@@ -618,7 +618,7 @@
         // --- LÓGICA DEL CHATBOT CON CONEXIÓN A GEMINI ---
         
         // 1. INSERTA TU API KEY AQUÍ
-        const GEMINI_API_KEY = "AIzaSyDikFG1nyLCKltit7mOerz1qoLUgHDyVSE";
+        const GEMINI_API_KEY = "AIzaSyBiNqMI6jZq4xLCuIdOvL-HtwcuhR-SsmE";
 
         const chatToggleBtn = document.getElementById('chat-toggle-btn');
         const chatWindow = document.getElementById('chat-window');
@@ -749,11 +749,11 @@
         chatForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const userInput = chatInput.value.trim();
-            if (userInput && GEMINI_API_KEY !== "AIzaSyDikFG1nyLCKltit7mOerz1qoLUgHDyVSE") {
+            if (userInput && GEMINI_API_KEY !== "AIzaSyBiNqMI6jZq4xLCuIdOvL-HtwcuhR-SsmE") {
                 addMessage(userInput, 'user');
                 callGeminiAPI(userInput);
                 chatInput.value = '';
-            } else if (GEMINI_API_KEY === "AIzaSyDikFG1nyLCKltit7mOerz1qoLUgHDyVSE") {
+            } else if (GEMINI_API_KEY === "AIzaSyBiNqMI6jZq4xLCuIdOvL-HtwcuhR-SsmE") {
                 addMessage("El chatbot no está activado. Falta la API Key.", 'ia');
             }
         });
@@ -761,4 +761,5 @@
     </script>
 </body>
 </html>
+
 
