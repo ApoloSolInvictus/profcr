@@ -613,13 +613,13 @@
         popupActionBtn.addEventListener('click', () => hidePopup(true));
         popupBackdrop.addEventListener('click', () => hidePopup());
 
-        setTimeout(showPopup, 9000);
+        setTimeout(showPopup, 7000);
 
         // --- LÓGICA DEL CHATBOT CON CONEXIÓN A GEMINI ---
         
         // 1. INSERTA TU API KEY AQUÍ
         const GEMINI_API_KEY = "AIzaSyBiNqMI6jZq4xLCuIdOvL-HtwcuhR-SsmE";
-
+        
         const chatToggleBtn = document.getElementById('chat-toggle-btn');
         const chatWindow = document.getElementById('chat-window');
         const chatIconOpen = document.getElementById('chat-icon-open');
@@ -728,7 +728,6 @@
                     text = candidate.content.parts[0].text;
                 }
                 
-                // Actualizar historial de conversación
                 conversationHistory.push({ role: "user", parts: [{ text: prompt }] });
                 conversationHistory.push({ role: "model", parts: [{ text: text }] });
 
@@ -749,11 +748,12 @@
         chatForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const userInput = chatInput.value.trim();
-            if (userInput && GEMINI_API_KEY !== "AIzaSyBiNqMI6jZq4xLCuIdOvL-HtwcuhR-SsmE") {
+            // CORRECCIÓN: Se cambió la condición para que sea más robusta.
+            if (userInput && GEMINI_API_KEY && GEMINI_API_KEY !== "TU_API_KEY_DE_GEMINI_AQUI") {
                 addMessage(userInput, 'user');
                 callGeminiAPI(userInput);
                 chatInput.value = '';
-            } else if (GEMINI_API_KEY === "AIzaSyBiNqMI6jZq4xLCuIdOvL-HtwcuhR-SsmE") {
+            } else {
                 addMessage("El chatbot no está activado. Falta la API Key.", 'ia');
             }
         });
@@ -761,5 +761,4 @@
     </script>
 </body>
 </html>
-
 
