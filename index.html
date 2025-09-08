@@ -473,6 +473,16 @@
         searchInput.addEventListener('keyup', performSearch);
         renderResults(database.slice(0, 3));
 
+		// --- Github
+
+		const response = await fetch('/github', {
+		  method: 'POST',
+		  headers: { 'Content-Type': 'application/json' },
+		  body: JSON.stringify({ endpoint: 'repos/ApoloSolInvictus/profcr', method: 'GET' })
+		});
+		const data = await response.json();
+		console.log(data);
+
         // --- LÓGICA DE MENÚ MÓVIL Y DESKTOP ---
         const menuBtn = document.getElementById('menu-btn');
         const closeBtn = document.getElementById('close-btn');
@@ -761,5 +771,6 @@
     </script>
 </body>
 </html>
+
 
 
