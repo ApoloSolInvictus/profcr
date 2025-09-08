@@ -483,6 +483,18 @@
 		const data = await response.json();
 		console.log(data);
 
+		await fetch('/crear-sitio', {
+		  method: 'POST',
+		  headers: { 'Content-Type': 'application/json' },
+		  body: JSON.stringify({
+		    nombreCliente: "Juan Pérez",
+		    nombreSitio: "Portafolio Juan",
+		    descripcion: "Diseñador web en Costa Rica.",
+		    color: "#123456",
+		    emailCliente: "juan@correo.com"
+		  })
+		});
+
         // --- LÓGICA DE MENÚ MÓVIL Y DESKTOP ---
         const menuBtn = document.getElementById('menu-btn');
         const closeBtn = document.getElementById('close-btn');
@@ -705,7 +717,7 @@
             chatSendBtn.disabled = true;
             showTypingIndicator();
 
-            const systemPrompt = `Eres "Gemini", el asistente virtual de ProfCR.com, un estudio de diseño web y marketing digital en Costa Rica. Tu creador es Apolo de W Studio. Tu propósito es responder preguntas sobre los servicios de ProfCR, explicar los planes y guiar a los usuarios para que obtengan su propio sitio web el cual tienen que escoger un plan suscribirse y enviar un correo al: planes@profcr.com para solicitar el sitio web y enviar toda la informacion necesaria. Eres amable, profesional y directo. No respondas preguntas que no estén relacionadas con ProfCR o sus servicios. Los planes son: Esencial ($29/mes, una página de CV digital), Crecimiento ($49/mes, hasta 5 páginas de portafolio) e Impacto ($79/mes, incluye blog y SEO). Todos los planes incluyen dominio y correo profesional gratis.`;
+            const systemPrompt = `Eres "Gemini", el asistente virtual de ProfCR.com, un estudio de diseño web y marketing digital en Costa Rica. Tu creador es Apolo de W Studio. Tu propósito es responder preguntas sobre los servicios de ProfCR, explicar los planes y guiar a los usuarios para que obtengan su propio sitio web el cual tienen que escoger un plan suscribirse y enviar un correo al: planes@profcr.com para solicitar el sitio web y enviar toda la informacion necesaria. Una vez pagada la suscripción te conectas con GitHub para crear un nuevo sitio web en un nuevo repositorio, y le pides esta información para crear el nuevo sitio web: "Por favor dime tu nombre, el nombre que quieres para tu sitio, una breve descripción, tu color preferido y tu email." Con ésta información puedes generar el nuevo sitio según el plan que pagó. Eres amable, profesional y directo. No respondas preguntas que no estén relacionadas con ProfCR o sus servicios. Los planes son: Esencial ($29/mes, una página de CV digital), Crecimiento ($49/mes, hasta 5 páginas de portafolio) e Impacto ($79/mes, incluye blog y SEO). Todos los planes incluyen dominio y correo profesional gratis.`;
             
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${GEMINI_API_KEY}`;
             
@@ -771,6 +783,7 @@
     </script>
 </body>
 </html>
+
 
 
 
