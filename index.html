@@ -473,27 +473,7 @@
         searchInput.addEventListener('keyup', performSearch);
         renderResults(database.slice(0, 3));
 
-		// --- Github
-
-		const response = await fetch('/github', {
-		  method: 'POST',
-		  headers: { 'Content-Type': 'application/json' },
-		  body: JSON.stringify({ endpoint: 'repos/ApoloSolInvictus/profcr', method: 'GET' })
-		});
-		const data = await response.json();
-		console.log(data);
-
-		await fetch('/crear-sitio', {
-		  method: 'POST',
-		  headers: { 'Content-Type': 'application/json' },
-		  body: JSON.stringify({
-		    nombreCliente: "Juan Pérez",
-		    nombreSitio: "Portafolio Juan",
-		    descripcion: "Diseñador web en Costa Rica.",
-		    color: "#123456",
-		    emailCliente: "juan@correo.com"
-		  })
-		});
+		
 
         // --- LÓGICA DE MENÚ MÓVIL Y DESKTOP ---
         const menuBtn = document.getElementById('menu-btn');
@@ -783,8 +763,4 @@
     </script>
 </body>
 </html>
-
-
-
-
 
