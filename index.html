@@ -473,27 +473,7 @@
         searchInput.addEventListener('keyup', performSearch);
         renderResults(database.slice(0, 3));
 
-		// --- Github
-		await fetch('/github', {
-		  method: 'POST',
-		  headers: { 'Content-Type': 'application/json' },
-		  body: JSON.stringify({ endpoint: 'repos/ApoloSolInvictus/profcr', method: 'GET' })
-		});
-		const data = await response.json();
-		console.log(data);
-
-		await fetch('/crear-sitio', {
-		  method: 'POST',
-		  headers: { 'Content-Type': 'application/json' },
-		  body: JSON.stringify({
-		    nombreCliente: "Juan Pérez",
-		    nombreSitio: "Portafolio Juan",
-		    descripcion: "Diseñador web en Costa Rica.",
-		    color: "#123456",
-		    emailCliente: "juan@correo.com"
-		  })
-		});
-
+		
 
         // --- LÓGICA DE MENÚ MÓVIL Y DESKTOP ---
         const menuBtn = document.getElementById('menu-btn');
@@ -586,377 +566,200 @@
             createSubscription: function(data, actions) {
                 return actions.subscription.create({ plan_id: 'P-1T955501L66107610NCYUMBI' });
             },
-            onApprove: function(data, actions) { alert('Suscripción completada: '...
-}
-</tbody>
-</table>
-</div>
-</section>
-</main>
+            onApprove: function(data, actions) { alert('Suscripción completada: ' + data.subscriptionID); }
+        }).render('#paypal-button-container-P-1T955501L66107610NCYUMBI');
 
-<!-- Footer -->
-<footer id="contacto" class="bg-white">
-<div class="container mx-auto px-6 py-16 text-center text-gray-600 border-t border-gray-200">
-<a href="#">
-<img src="images/logo.png" alt="ProfCR Logo" class="h-13 w-auto mx-auto mb-6">
-</a>
+        paypal.Buttons({
+            style: { shape: 'pill', color: 'black', layout: 'vertical', label: 'subscribe' },
+            createSubscription: function(data, actions) {
+                return actions.subscription.create({ plan_id: 'P-9DB8761963542112PNCYUFHY' });
+            },
+            onApprove: function(data, actions) { alert('Suscripción completada: ' + data.subscriptionID); }
+        }).render('#paypal-button-container-P-9DB8761963542112PNCYUFHY');
 
-        <div class="flex justify-center space-x-6 mb-8">
-            <a href="https://www.facebook.com/amarkstudios/" target="_blank" class="text-gray-400 hover:text-blue-600 transition-colors">
-                <span class="sr-only">Facebook</span>
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
-            </a>
-            <a href="https://x.com/amarkstudio" target="_blank" class="text-gray-400 hover:text-gray-900 transition-colors">
-                <span class="sr-only">X</span>
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-            <a href="https://www.instagram.com/amarkstudio/" target="_blank" class="text-gray-400 hover:text-pink-600 transition-colors">
-                <span class="sr-only">Instagram</span>
-                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2c2.828 0 3.23.012 4.352.063c1.096.05 1.83.218 2.47.464c.652.25 1.21.583 1.745 1.12c.537.536.87 1.092 1.12 1.744c.246.64.414 1.375.464 2.47c.05 1.123.063 1.524.063 4.352s-.012 3.23-.063 4.352c-.05 1.096-.218 1.83-.464 2.47c-.25.652-.583 1.21-1.12 1.745c-.536.537-1.092.87-1.744 1.12c-.64.246-1.375.414-2.47.464c-1.123.05-1.524.063-4.352.063s-3.23-.012-4.352-.063c-1.096-.05-1.83-.218-2.47-.464c-.652-.25-1.21-.583-1.745-1.12c-.537-.536-.87-1.092-1.12-1.744c-.246-.64-.414-1.375-.464-2.47c-.05-1.123-.063-1.524-.063-4.352s.012-3.23.063-4.352c.05-1.096.218-1.83.464-2.47c.25-.652.583-1.21 1.12-1.745c.536-.537 1.092-.87 1.744-1.12c.64-.246 1.375-.414 2.47-.464C8.77 2.013 9.172 2 12 2zm0 1.8c-2.775 0-3.15.01-4.25.06c-1.012.046-1.63.208-2.09.4c-.48.198-.86.46-1.25.85c-.39.39-.652.77-.85 1.25c-.192.46-.354 1.078-.4 2.09c-.05 1.1-.06 1.475-.06 4.25s.01 3.15.06 4.25c.046 1.012.208 1.63.4 2.09c.198.48.46.86.85 1.25c.39.39.77.652 1.25.85c.46.192 1.078.354 2.09.4c1.1.05 1.475.06 4.25.06s3.15-.01 4.25-.06c1.012-.046 1.63-.208 2.09-.4c.48-.198.86-.46 1.25-.85c.39-.39.652-.77.85-1.25c.192-.46.354-1.078.4-2.09c.05-1.1.06-1.475.06-4.25s-.01-3.15-.06-4.25c-.046-1.012-.208-1.63-.4-2.09c-.198-.48-.46-.86-.85-1.25c-.39-.39-.77-.652-1.25-.85c-.46-.192-1.078-.354-2.09-.4C15.15 3.81 14.775 3.8 12 3.8zm0 4.5a3.7 3.7 0 100 7.4a3.7 3.7 0 000-7.4zm0 6c-1.215 0-2.2-1.03-2.2-2.3s.985-2.3 2.2-2.3s2.2 1.03 2.2 2.3s-.985 2.3-2.2 2.3zm4.336-6.42a.9.9 0 100-1.8a.9.9 0 000 1.8z" clip-rule="evenodd" /></svg>
-            </a>
-            <a href="https://www.tiktok.com/@amarkstudio" target="_blank" class="text-gray-400 hover:text-gray-900 transition-colors">
-                <span class="sr-only">TikTok</span>
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-1.7v6.33A6.81 6.81 0 0 1 9.12 16a6.27 6.27 0 0 1-6.16-7.11 6.1 6.1 0 0 1 6.08-5.16v2.1a3.9 3.9 0 0 0-3.8 4.54 4.02 4.02 0 0 0 4.1 3.51 4.08 4.08 0 0 0 4.05-4.13V3h1.7a2.58 2.58 0 0 0 2.5 2.82z"/></svg>
-            </a>
-        </div>
+        // --- LÓGICA DEL POPUP ---
+        const popupContainer = document.getElementById('popup-container');
+        const popupBackdrop = document.getElementById('popup-backdrop');
+        const popupBox = document.getElementById('popup-box');
+        const popupCloseBtn = document.getElementById('popup-close-btn');
+        const popupActionBtn = document.getElementById('popup-action-btn');
 
-        <p class="text-sm max-w-md mx-auto mb-8">Impulsando a los profesionales de Costa Rica con tecnología y diseño de clase mundial.</p>
-        <p class="text-xs text-gray-500">&copy; 2025 <a href="https://wstudiocr.com" class="text-red-600 hover:underline">W Studio</a>. Creado por Apolo y <a href="https://gemini.google.com/" class="text-red-600 hover:underline">Gemini</a>.</p>
-    </div>
-</footer>
+        const showPopup = () => {
+            let viewCount = localStorage.getItem('profcrPopupViewCount') || 0;
+            const hasClicked = localStorage.getItem('profcrPopupClicked') === 'true';
 
-<!-- Chatbot Widget -->
-<div class="fixed bottom-6 right-6 z-[60]">
-<!-- Botón del Chat -->
-<button id="chat-toggle-btn" class="bg-blue-600 text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform">
-<svg id="chat-icon-open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-<svg id="chat-icon-close" class="w-8 h-8 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-</button>
+            if (viewCount < 3 && !hasClicked) {
+                popupContainer.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => {
+                    popupBackdrop.classList.remove('opacity-0');
+                    popupBox.classList.remove('opacity-0', 'scale-95');
+                }, 10);
+                localStorage.setItem('profcrPopupViewCount', ++viewCount);
+            }
+        };
 
-<!-- Ventana del Chat -->
-<div id="chat-window" class="chat-widget absolute bottom-20 right-0 w-80 md:w-96 bg-white rounded-2xl shadow-2xl border border-gray-200 hidden opacity-0 transform translate-y-4">
-<!-- Header del Chat -->
-<div class="bg-gray-50 p-4 rounded-t-2xl flex items-center space-x-3 border-b">
-<div class="bg-blue-600 p-2 rounded-full text-white">
-<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-</div>
-<div>
-<p class="font-bold text-gray-800">Asistente Gemini</p>
-<p class="text-xs text-green-500 font-semibold">En línea</p>
-</div>
-</div>
+        const hidePopup = (setClicked = false) => {
+            popupBackdrop.classList.add('opacity-0');
+            popupBox.classList.add('opacity-0', 'scale-95');
+            if (setClicked) {
+                localStorage.setItem('profcrPopupClicked', 'true');
+            }
+            setTimeout(() => {
+                popupContainer.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        };
+        
+        popupCloseBtn.addEventListener('click', () => hidePopup());
+        popupActionBtn.addEventListener('click', () => hidePopup(true));
+        popupBackdrop.addEventListener('click', () => hidePopup());
 
-<!-- Cuerpo de Mensajes -->
-<div id="chat-messages" class="p-4 h-80 overflow-y-auto space-y-4">
-<!-- Mensaje de bienvenida de la IA -->
-<div class="flex justify-start">
-<div class="chat-bubble bg-gray-200 text-gray-800 p-3 rounded-lg rounded-bl-none">
-<p>¡Hola! Soy el asistente de ProfCR. ¿Cómo puedo ayudarte a encontrar un profesional o a obtener tu propio sitio web?</p>
-</div>
-</div>
-</div>
+        setTimeout(showPopup, 9000);
 
-<!-- Input de Mensaje -->
-<div class="p-4 border-t">
-<form id="chat-form" class="relative">
-<input id="chat-input" type="text" placeholder="Escribe tu pregunta..." class="w-full pl-4 pr-12 py-2 bg-gray-100 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" autocomplete="off">
-<button id="chat-send-btn" type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors disabled:bg-blue-400">
-<svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-</button>
-</form>
-</div>
-</div>
-</div>
+        // --- LÓGICA DEL CHATBOT CON CONEXIÓN A GEMINI ---
+        
+        // 1. INSERTA TU API KEY AQUÍ
+        const GEMINI_API_KEY = "AIzaSyBiNqMI6jZq4xLCuIdOvL-HtwcuhR-SsmE";
 
+        const chatToggleBtn = document.getElementById('chat-toggle-btn');
+        const chatWindow = document.getElementById('chat-window');
+        const chatIconOpen = document.getElementById('chat-icon-open');
+        const chatIconClose = document.getElementById('chat-icon-close');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatSendBtn = document.getElementById('chat-send-btn');
+        
+        let conversationHistory = [];
 
-<script src="https://www.paypal.com/sdk/js?client-id=AZhuHaoRMy0PKJJbcCBDANsX-jjoCCBLzhEEvFB7v5oVPxRH8YIxuP3P4_Zap0eEOU-wvzYstPQ-kjD4&components=buttons,hosted-fields&vault=true&intent=subscription"></script>
+        // Función para abrir/cerrar el chat
+        chatToggleBtn.addEventListener('click', () => {
+            const isHidden = chatWindow.classList.contains('hidden');
+            if (isHidden) {
+                chatWindow.classList.remove('hidden');
+                setTimeout(() => {
+                    chatWindow.classList.remove('opacity-0', 'translate-y-4');
+                }, 10);
+                chatIconOpen.classList.add('hidden');
+                chatIconClose.classList.remove('hidden');
+            } else {
+                chatWindow.classList.add('opacity-0', 'translate-y-4');
+                setTimeout(() => {
+                    chatWindow.classList.add('hidden');
+                }, 300);
+                chatIconOpen.classList.remove('hidden');
+                chatIconClose.classList.add('hidden');
+            }
+        });
 
-<script>
-// --- BASE DE DATOS LOCAL ---
-const database = [
-{ name: 'Arq. Sofía Castro', category: 'Plan Esencial', location: 'Ejemplo', description: 'Diseño de CV Digital en ProfCR, si desea obtenerlo siga las instrucciones de este sitio web.', imageUrl: 'images/modelo1.jpg', subdomain: 'esencial', tags: ['arquitecta', 'diseño', 'planos', 'construccion', 'cartago', 'sofia', 'castro'] },
-{ name: 'Barbería Luka', category: 'Plan Crecimiento', location: 'San Pedro', description: 'Diseño de Portafolios en ProfCR, ahora utilice el buscador de perfiles, escriba sólo una "s" y vea todos.', imageUrl: 'images/modelo2.jpg', subdomain: 'crecimiento', tags: ['barberia', 'san pedro', 'cortes', 'pelo', 'barba', 'luka'] },
-{ name: 'Abogados García & Asoc.', category: 'Plan Impacto', location: 'San José', description: 'Diseño de Blog en ProfCR, si después de ver todo le interesa un sitio web, eliga un plan y suscribase.', imageUrl: 'images/modelo3.jpg', subdomain: 'impacto', tags: ['abogados', 'legal', 'san jose', 'familia', 'comercial', 'garcia'] },
-{ name: 'Maskotitas', category: 'Veterinaria', location: 'Rohrmoser', description: 'Especialistas en cirugías de mascotas, y tienda de productos y medicinas de veterinaria.', imageUrl: 'images/modelo4.jpg', subdomain: 'modelo4', tags: ['veterinario', 'mascotas', 'san jose', 'familia', 'cirugia', 'maskotitas'] },
-{ name: 'Barbería Europa', category: 'Cuidado Personal', location: 'Rohrmoser', description: 'Especialistas en cortes de pelo europeos y clásicos estilos.', imageUrl: 'images/modelo5.jpg', subdomain: 'modelo5', tags: ['barberia', 'san jose', 'cortes', 'pelo', 'barba', 'europa'] },
-{ name: 'Arq. Ronny Woods', category: 'Arquitectura y Diseño', location: 'Rohrmoser', description: 'Diseño de planos arquitectónicos para proyectos residenciales y comerciales. Creatividad y funcionalidad.', imageUrl: 'images/modelo6.jpg', subdomain: 'modelo6', tags: ['arquitecta', 'diseño', 'planos', 'construccion', 'san jose', 'ronny', 'woods'] },
-{ name: 'Ing. Osvaldo Pérez', category: 'Ingeniero Civil', location: 'Rohrmoser', description: 'Especialistas en construcciones y firmas de planos de ingeniería.', imageUrl: 'images/modelo7.jpg', subdomain: 'modelo7', tags: ['ingeniero', 'diseño', 'planos', 'construccion', 'san jose', 'osvaldo', 'perez'] },
-{ name: 'Ing. Kamil Gutierrez', category: 'Ingeniero Civil', location: 'Pavas', description: 'Especialistas en construcciones y firmas de planos de ingeniería.', imageUrl: 'images/modelo8.jpg', subdomain: 'modelo8', tags: ['ingeniero', 'diseño', 'planos', 'construccion', 'san jose', 'kamil', 'gutierrez'] },
-{ name: 'Petshop K', category: 'Veterinaria', location: 'Rohrmoser', description: 'Especialistas en cirugías de mascotas, y tienda de productos y medicinas de veterinaria.', imageUrl: 'images/modelo9.jpg', subdomain: 'modelo9', tags: ['veterinario', 'mascotas', 'san jose', 'familia', 'cirugia', 'petshop'] },
-];
+        // Función para añadir mensajes al chat
+        const addMessage = (text, sender) => {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('flex', sender === 'user' ? 'justify-end' : 'justify-start');
+            
+            const bubble = document.createElement('div');
+            bubble.classList.add('chat-bubble', 'p-3', 'rounded-lg');
+            bubble.classList.add(sender === 'user' ? 'bg-blue-600' : 'bg-gray-200', sender === 'user' ? 'text-white' : 'text-gray-800');
+            bubble.classList.add(sender === 'user' ? 'rounded-br-none' : 'rounded-bl-none');
+            bubble.textContent = text;
+            
+            messageDiv.appendChild(bubble);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll
+        };
+        
+        // Función para mostrar el indicador de "escribiendo"
+        const showTypingIndicator = () => {
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.classList.add('flex', 'justify-start');
+            typingDiv.innerHTML = `
+                <div class="chat-bubble bg-gray-200 p-3 rounded-lg rounded-bl-none">
+                    <div class="typing-indicator">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>`;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        };
+        
+        // Función para quitar el indicador de "escribiendo"
+        const hideTypingIndicator = () => {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        };
 
-// --- LÓGICA DEL BUSCADOR ---
-const searchInput = document.getElementById('search-input');
-const resultsContainer = document.getElementById('results-container');
-const resultsTitle = document.getElementById('results-title');
+        // Función para llamar a la API de Gemini
+        const callGeminiAPI = async (prompt) => {
+            chatSendBtn.disabled = true;
+            showTypingIndicator();
 
-const renderResults = (data) => {
-resultsContainer.innerHTML = '';
-if (data.length === 0) {
-resultsContainer.innerHTML = `<p class="col-span-full text-center text-gray-500">No se encontraron resultados para tu búsqueda.</p>`;
-return;
-}
-data.forEach((item, index) => {
-const profileUrl = `https://${item.subdomain}.profcr.com`;
-const card = `
-<a href="${profileUrl}" target="_blank" class="block bg-white rounded-2xl overflow-hidden card-hover border border-gray-200/50 animate-fade-in-up" style="animation-delay: ${index * 100}ms;">
-<div class="w-full h-56 bg-gray-200">
-<img src="${item.imageUrl}" alt="${item.name}" class="w-full h-full object-cover">
-</div>
-<div class="p-6">
-<p class="text-sm font-medium text-blue-600 mb-1">${item.category} • ${item.location}</p>
-<h3 class="text-xl font-semibold text-gray-900 mb-2">${item.name}</h3>
-<p class="text-gray-600 text-sm">${item.description}</p>
-</div>
-</a>`;
-resultsContainer.innerHTML += card;
-});
-};
+            const systemPrompt = `Eres "Gemini", el asistente virtual de ProfCR.com, un estudio de diseño web y marketing digital en Costa Rica. Tu creador es Apolo de W Studio. Tu propósito es responder preguntas sobre los servicios de ProfCR, explicar los planes y guiar a los usuarios para que obtengan su propio sitio web el cual tienen que escoger un plan suscribirse y enviar un correo al: planes@profcr.com para solicitar el sitio web y enviar toda la informacion necesaria. Una vez pagada la suscripción te conectas con GitHub para crear un nuevo sitio web en un nuevo repositorio, y le pides esta información para crear el nuevo sitio web: "Por favor dime tu nombre, el nombre que quieres para tu sitio, una breve descripción, tu color preferido y tu email." Con ésta información puedes generar el nuevo sitio según el plan que pagó. Eres amable, profesional y directo. No respondas preguntas que no estén relacionadas con ProfCR o sus servicios. Los planes son: Esencial ($29/mes, una página de CV digital), Crecimiento ($49/mes, hasta 5 páginas de portafolio) e Impacto ($79/mes, incluye blog y SEO). Todos los planes incluyen dominio y correo profesional gratis.`;
+            
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${GEMINI_API_KEY}`;
+            
+            const payload = {
+                contents: [
+                    ...conversationHistory,
+                    { role: "user", parts: [{ text: prompt }] }
+                ],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+            };
 
-const performSearch = () => {
-const query = searchInput.value.toLowerCase().trim();
-if (!query) {
-resultsTitle.textContent = 'Últimos profesionales agregados';
-renderResults(database.slice(0, 3));
-return;
-}
-resultsTitle.textContent = 'Resultados de la búsqueda';
-const filteredData = database.filter(item => {
-const searchableString = `${item.name} ${item.category} ${item.location} ${item.tags.join(' ')}`.toLowerCase();
-return searchableString.includes(query);
-});
-renderResults(filteredData.slice(0, 9));
-};
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error de API: ${response.statusText}`);
+                }
 
-searchInput.addEventListener('keyup', performSearch);
-renderResults(database.slice(0, 3));
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+                let text = "Lo siento, no pude procesar tu solicitud en este momento. Inténtalo de nuevo.";
 
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    text = candidate.content.parts[0].text;
+                }
+                
+                conversationHistory.push({ role: "user", parts: [{ text: prompt }] });
+                conversationHistory.push({ role: "model", parts: [{ text: text }] });
 
+                hideTypingIndicator();
+                addMessage(text, 'ia');
+                
+            } catch (error) {
+                console.error("Error al llamar a la API de Gemini:", error);
+                hideTypingIndicator();
+                addMessage("Hubo un error al conectar con el asistente. Por favor, intenta más tarde.", 'ia');
+            } finally {
+                 chatSendBtn.disabled = false;
+                 chatInput.focus();
+            }
+        };
 
-// --- LÓGICA DE MENÚ MÓVIL Y DESKTOP ---
-const menuBtn = document.getElementById('menu-btn');
-const closeBtn = document.getElementById('close-btn');
-const mobileMenu = document.getElementById('mobile-menu');
-const backdrop = document.getElementById('menu-backdrop');
-const menuLinks = document.querySelectorAll('.menu-link');
-const planesToggleBtn = document.getElementById('planes-toggle-btn');
-const planesSubmenu = document.getElementById('planes-submenu');
-const planesChevron = document.getElementById('planes-chevron');
+        // Manejar envío del formulario
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userInput = chatInput.value.trim();
+            if (userInput && GEMINI_API_KEY && GEMINI_API_KEY !== "TU_API_KEY_DE_GEMINI_AQUI") {
+                addMessage(userInput, 'user');
+                callGeminiAPI(userInput);
+                chatInput.value = '';
+            } else {
+                addMessage("El chatbot no está activado. Falta la API Key.", 'ia');
+            }
+        });
 
-const desktopPlansBtn = document.getElementById('desktop-plans-btn');
-const desktopPlansSubmenu = document.getElementById('desktop-plans-submenu');
-
-planesToggleBtn.addEventListener('click', () => {
-const isOpen = planesSubmenu.style.maxHeight;
-if (isOpen && isOpen !== '0px') {
-planesSubmenu.style.maxHeight = '0px';
-planesChevron.style.transform = 'rotate(0deg)';
-} else {
-planesSubmenu.style.maxHeight = planesSubmenu.scrollHeight + 'px';
-planesChevron.style.transform = 'rotate(180deg)';
-}
-});
-
-function openMenu() {
-backdrop.classList.remove('hidden');
-document.body.style.overflow = 'hidden';
-setTimeout(() => {
-backdrop.style.opacity = '1';
-mobileMenu.classList.add('is-open');
-}, 10);
-}
-
-function closeMenu() {
-backdrop.style.opacity = '0';
-mobileMenu.classList.remove('is-open');
-setTimeout(() => {
-backdrop.classList.add('hidden');
-document.body.style.overflow = '';
-}, 300);
-}
-
-menuBtn.addEventListener('click', openMenu);
-closeBtn.addEventListener('click', closeMenu);
-backdrop.addEventListener('click', closeMenu);
-menuLinks.forEach(link => {
-link.addEventListener('click', (e) => {
-if (e.target.closest('#planes-toggle-btn')) return;
-closeMenu();
-});
-});
-
-desktopPlansBtn.addEventListener('click', () => {
-const isHidden = desktopPlansSubmenu.classList.contains('hidden');
-if (isHidden) {
-desktopPlansSubmenu.classList.remove('hidden');
-setTimeout(() => {
-desktopPlansSubmenu.classList.remove('opacity-0', '-translate-y-2');
-}, 10);
-} else {
-desktopPlansSubmenu.classList.add('opacity-0', '-translate-y-2');
-setTimeout(() => {
-desktopPlansSubmenu.classList.add('hidden');
-}, 300);
-}
-});
-
-document.addEventListener('click', (e) => {
-if (!document.getElementById('desktop-plans-menu-container').contains(e.target)) {
-desktopPlansSubmenu.classList.add('opacity-0', '-translate-y-2');
-setTimeout(() => {
-desktopPlansSubmenu.classList.add('hidden');
-}, 300);
-}
-});
-
-
-// --- LÓGICA DE BOTONES PAYPAL ---
-paypal.Buttons({
-style: { shape: 'pill', color: 'blue', layout: 'vertical', label: 'subscribe' },
-createSubscription: function(data, actions) {
-return actions.subscription.create({ plan_id: 'P-8KD45673HW2618100NCYUADY' });
-},
-onApprove: function(data, actions) { alert('Suscripción completada: ' + data.subscriptionID); }
-}).render('#paypal-button-container-P-8KD45673HW2618100NCYUADY');
-
-paypal.Buttons({
-style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'subscribe' },
-createSubscription: function(data, actions) {
-return actions.subscription.create({ plan_id: 'P-1T955501L66107610NCYUMBI' });
-},
-onApprove: function(data, actions) { alert('Suscripción completada: ' + data.subscriptionID); }
-}).render('#paypal-button-container-P-1T955501L66107610NCYUMBI');
-
-paypal.Buttons({
-style: { shape: 'pill', color: 'black', layout: 'vertical', label: 'subscribe' },
-createSubscription: function(data, actions) {
-return actions.subscription.create({ plan_id: 'P-9DB8761963542112PNCYUFHY' });
-},
-onApprove: function(data, actions) { alert('Suscripción completada: ' + data.subscriptionID); }
-}).render('#paypal-button-container-P-9DB8761963542112PNCYUFHY');
-
-// --- LÓGICA DEL POPUP ---
-const popupContainer = document.getElementById('popup-container');
-const popupBackdrop = document.getElementById('popup-backdrop');
-const popupBox = document.getElementById('popup-box');
-const popupCloseBtn = document.getElementById('popup-close-btn');
-const popupActionBtn = document.getElementById('popup-action-btn');
-
-const showPopup = () => {
-let viewCount = localStorage.getItem('profcrPopupViewCount') || 0;
-const hasClicked = localStorage.getItem('profcrPopupClicked') === 'true';
-
-if (viewCount < 3 && !hasClicked) {
-popupContainer.classList.remove('hidden');
-document.body.style.overflow = 'hidden';
-setTimeout(() => {
-popupBackdrop.classList.remove('opacity-0');
-popupBox.classList.remove('opacity-0', 'scale-95');
-}, 10);
-localStorage.setItem('profcrPopupViewCount', ++viewCount);
-}
-};
-
-const hidePopup = (setClicked = false) => {
-popupBackdrop.classList.add('opacity-0');
-popupBox.classList.add('opacity-0', 'scale-95');
-if (setClicked) {
-localStorage.setItem('profcrPopupClicked', 'true');
-}
-setTimeout(() => {
-popupContainer.classList.add('hidden');
-document.body.style.overflow = '';
-}, 300);
-};
-
-popupCloseBtn.addEventListener('click', () => hidePopup());
-popupActionBtn.addEventListener('click', () => hidePopup(true));
-popupBackdrop.addEventListener('click', () => hidePopup());
-
-setTimeout(showPopup, 9000);
-
-// --- LÓGICA DEL CHATBOT CON CONEXIÓN A GEMINI ---
-
-// 1. INSERTA TU API KEY AQUÍ
-const GEMINI_API_KEY = "AIzaSyBiNqMI6jZq4xLCuIdOvL-HtwcuhR-SsmE";
-
-const chatToggleBtn = document.getElementById('chat-toggle-btn');
-const chatWindow = document.getElementById('chat-window');
-const chatIconOpen = document.getElementById('chat-icon-open');
-const chatIconClose = document.getElementById('chat-icon-close');
-const chatMessages = document.getElementById('chat-messages');
-const chatForm = document.getElementById('chat-form');
-const chatInput = document.getElementById('chat-input');
-const chatSendBtn = document.getElementById('chat-send-btn');
-
-let conversationHistory = [];
-
-// Función para llamar a la API de Gemini
-const callGeminiAPI = async (prompt) => {
-chatSendBtn.disabled = true;
-showTypingIndicator();
-
-const systemPrompt = `Eres "Gemini", el asistente virtual de ProfCR.com, un estudio de diseño web y marketing digital en Costa Rica. Tu creador es Apolo de W Studio. Tu propósito es responder preguntas sobre los servicios de ProfCR, explicar los planes y guiar a los usuarios para que obtengan su propio sitio web. Eres amable, profesional y directo. No respondas preguntas que no estén relacionadas con ProfCR o sus servicios. Los planes son: Esencial ($29/mes, una página), Crecimiento ($49/mes, hasta 5 páginas) e Impacto ($79/mes, incluye blog y SEO). Todos los planes incluyen dominio y correo profesional gratis.`;
-
-const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${GEMINI_API_KEY}`;
-
-const payload = {
-contents: [
-...conversationHistory,
-{ role: "user", parts: [{ text: prompt }] }
-],
-systemInstruction: {
-parts: [{ text: systemPrompt }]
-},
-};
-
-try {
-const response = await fetch(apiUrl, {
-method: 'POST',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify(payload)
-});
-
-if (!response.ok) {
-throw new Error(`Error de API: ${response.statusText}`);
-}
-
-const result = await response.json();
-const candidate = result.candidates?.[0];
-let text = "Lo siento, no pude procesar tu solicitud en este momento. Inténtalo de nuevo.";
-
-if (candidate && candidate.content?.parts?.[0]?.text) {
-text = candidate.content.parts[0].text;
-}
-
-conversationHistory.push({ role: "user", parts: [{ text: prompt }] });
-conversationHistory.push({ role: "model", parts: [{ text: text }] });
-
-hideTypingIndicator();
-addMessage(text, 'ia');
-
-} catch (error) {
-console.error("Error al llamar a la API de Gemini:", error);
-hideTypingIndicator();
-addMessage("Hubo un error al conectar con el asistente. Por favor, intenta más tarde.", 'ia');
-} finally {
-chatSendBtn.disabled = false;
-chatInput.focus();
-}
-};
-
-// Manejar envío del formulario
-chatForm.addEventListener('submit', (e) => {
-e.preventDefault();
-const userInput = chatInput.value.trim();
-if (userInput && GEMINI_API_KEY !== "TU_API_KEY_DE_GEMINI_AQUI") {
-addMessage(userInput, 'user');
-callGeminiAPI(userInput);
-chatInput.value = '';
-} else {
-addMessage("El chatbot no está activado. Falta la API Key.", 'ia');
-}
-});
-</script>
+    </script>
 </body>
 </html>
+
