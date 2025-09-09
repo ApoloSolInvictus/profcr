@@ -331,6 +331,12 @@
                         </div>
                     </div>
                 </div>
+                 <!-- Botón Adicional del Storybook -->
+                <div class="text-center mt-16">
+                    <a href="https://gemini.google.com/share/7c29cd89fa62" target="_blank" class="inline-block bg-gray-800 text-white text-sm font-semibold py-3 px-8 rounded-full hover:bg-black transition-colors">
+                        Ver el Storybook
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -519,27 +525,6 @@
 
         searchInput.addEventListener('keyup', performSearch);
         renderResults(database.slice(0, 3));
-
-		// --- Github
-		const response = await fetch('/github', {
-		  method: 'POST',
-		  headers: { 'Content-Type': 'application/json' },
-		  body: JSON.stringify({ endpoint: 'repos/ApoloSolInvictus/profcr', method: 'GET' })
-		});
-		const data = await response.json();
-		console.log(data);
-
-		await fetch('/crear-sitio', {
-		  method: 'POST',
-		  headers: { 'Content-Type': 'application/json' },
-		  body: JSON.stringify({
-		    nombreCliente: "Juan Pérez",
-		    nombreSitio: "Portafolio Juan",
-		    descripcion: "Diseñador web en Costa Rica.",
-		    color: "#123456",
-		    emailCliente: "juan@correo.com"
-		  })
-		});
 
 
         // --- LÓGICA DE MENÚ MÓVIL Y DESKTOP ---
@@ -793,6 +778,28 @@
             chatSendBtn.disabled = chatInput.value.trim() === '';
         });
 
+		// --- Github
+		const response = await fetch('/github', {
+		  method: 'POST',
+		  headers: { 'Content-Type': 'application/json' },
+		  body: JSON.stringify({ endpoint: 'repos/ApoloSolInvictus/profcr', method: 'GET' })
+		});
+		const data = await response.json();
+		console.log(data);
+
+		await fetch('/crear-sitio', {
+		  method: 'POST',
+		  headers: { 'Content-Type': 'application/json' },
+		  body: JSON.stringify({
+		    nombreCliente: "Juan Pérez",
+		    nombreSitio: "Portafolio Juan",
+		    descripcion: "Diseñador web en Costa Rica.",
+		    color: "#123456",
+		    emailCliente: "juan@correo.com"
+		  })
+		});
+
     </script>
 </body>
 </html>
+
