@@ -743,41 +743,47 @@
         };
 
         const getGeminiResponse = async (userInput) => {
-            const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${GEMINI_API_KEY}`;
+            // La URL de tu nuevo backend. Cuando lo despliegues, esta URL cambiará.
+            const API_URL = 'http://localhost:3000/api/chat';
 
-            const systemPrompt = `Eres Gemini el asistente virtual de ProfCR.com, un servicio de Costa Rica que crea sitios web para profesionales. Tu objetivo es responder preguntas sobre los planes, el proceso y los beneficios. Sé amable, conciso y profesional. La información de la página es tu fuente principal. Los planes son: Esencial ($29/mes, 1 pág), Crecimiento ($49/mes, 5 pág), Impacto ($79/mes, 5 pág + blog). Todos incluyen subdominio y correo. El proceso es: 1. Elegir plan, 2. Pagar con PayPal, 3. Un asistente IA contacta para recopilar info. ProfCR es una marca de W Studio, una colaboración entre Apolo (humano) y Gemini (IA).`;
-
-            conversationHistory.push({ role: "user", parts: [{ text: userInput }] });
-            
-            const payload = {
-                contents: conversationHistory,
-                systemInstruction: {
-                    parts: [{ text: systemPrompt }]
-                },
-            };
+            // Preparamos el historial para enviarlo al backend
+            const historyForApi = conversationHistory.map(item => ({
+                role: item.role,
+                parts: item.parts.map(p => ({ text: p.text }))
+            }));
 
             try {
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({
+                        // Enviamos el historial y el nuevo mensaje por separado
+                        history: historyForApi,
+                        message: userInput
+                    })
                 });
 
                 if (!response.ok) {
-                    throw new Error(`Error en la API: ${response.statusText}`);
+                    throw new Error(`Error en el servidor: ${response.statusText}`);
                 }
 
                 const data = await response.json();
-                const aiResponse = data.candidates[0].content.parts[0].text;
+                const aiResponse = data.response;
+
+                // Actualizamos el historial localmente
+                conversationHistory.push({ role: "user", parts: [{ text: userInput }] });
                 conversationHistory.push({ role: "model", parts: [{ text: aiResponse }] });
+                
                 return aiResponse;
 
             } catch (error) {
-                console.error("Error al contactar la API de Gemini:", error);
+                console.error("Error al contactar el backend:", error);
                 return "Lo siento, estoy teniendo problemas para conectarme en este momento. Por favor, intenta de nuevo más tarde.";
             }
         };
 
+        // Modifica también la función handleChatSubmit para que no actualice el historial,
+        // ya que getGeminiResponse ahora se encarga de eso.
         const handleChatSubmit = async (e) => {
             e.preventDefault();
             const userMessage = chatInput.value.trim();
@@ -789,6 +795,7 @@
 
             addTypingIndicator();
 
+            // Llamamos a la función actualizada
             const aiResponse = await getGeminiResponse(userMessage);
 
             removeTypingIndicator();
@@ -837,4 +844,5 @@
     </script>
 </body>
 </html>
+
 
