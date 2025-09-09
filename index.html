@@ -611,103 +611,67 @@
         });
 
 
-        // --- LÓGICA DE BOTONES PAYPAL ---
-        // Se recomienda manejar las confirmaciones con un modal en lugar de 'alert' o 'console.log' para una mejor experiencia de usuario.
-        paypal.Buttons({
-            style: { shape: 'pill', color: 'blue', layout: 'vertical', label: 'subscribe' },
-            createSubscription: function(data, actions) {
-                return actions.subscription.create({ plan_id: 'P-8KD45673HW2618100NCYUADY' });
-            },
-            onApprove: function(data, actions) {
-		        console.log('Suscripción iniciada: ' + data.subscriptionID);
-		        
-		        // Llamamos a nuestro backend para verificar
-		        fetch('[https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription](https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription)', {
-		            method: 'POST',
-		            headers: { 'Content-Type': 'application/json' },
-		            body: JSON.stringify({
-		                subscriptionID: data.subscriptionID
-		            })
-		        })
-		        .then(response => response.json())
-		        .then(result => {
-		            if (result.status === 'verificado') {
-		                // Muestra un mensaje de éxito al usuario en la página
-		                alert('¡Gracias por tu suscripción! Hemos verificado tu pago y te enviaremos un correo en breve.');
-		            } else {
-		                alert('Hubo un problema al verificar tu pago. Por favor, contacta a soporte.');
-		            }
-		        })
-		        .catch(error => {
-		            console.error('Error:', error);
-		            alert('Ocurrió un error. Por favor, contacta a soporte.');
-		        });
-		    }
-		}).render('#paypal-button-container-P-8KD45673HW2618100NCYUADY');
+      <script>
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // ... (Todo el código anterior de la base de datos, buscador, menú, etc., se mantiene igual) ...
 
-        paypal.Buttons({
-            style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'subscribe' },
-            createSubscription: function(data, actions) {
-                return actions.subscription.create({ plan_id: 'P-1T955501L66107610NCYUMBI' });
-            },
-            onApprove: function(data, actions) {
-		        console.log('Suscripción iniciada: ' + data.subscriptionID);
-		        
-		        // Llamamos a nuestro backend para verificar
-		        fetch('[https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription](https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription)', {
-		            method: 'POST',
-		            headers: { 'Content-Type': 'application/json' },
-		            body: JSON.stringify({
-		                subscriptionID: data.subscriptionID
-		            })
-		        })
-		        .then(response => response.json())
-		        .then(result => {
-		            if (result.status === 'verificado') {
-		                // Muestra un mensaje de éxito al usuario en la página
-		                alert('¡Gracias por tu suscripción! Hemos verificado tu pago y te enviaremos un correo en breve.');
-		            } else {
-		                alert('Hubo un problema al verificar tu pago. Por favor, contacta a soporte.');
-		            }
-		        })
-		        .catch(error => {
-		            console.error('Error:', error);
-		            alert('Ocurrió un error. Por favor, contacta a soporte.');
-		        });
-		    }
-		}).render('#paypal-button-container-P-1T955501L66107610NCYUMBI');
 
-        paypal.Buttons({
-            style: { shape: 'pill', color: 'black', layout: 'vertical', label: 'subscribe' },
-            createSubscription: function(data, actions) {
-                return actions.subscription.create({ plan_id: 'P-9DB8761963542112PNCYUFHY' });
-            },
-            onApprove: function(data, actions) {
-		        console.log('Suscripción iniciada: ' + data.subscriptionID);
-		        
-		        // Llamamos a nuestro backend para verificar
-		        fetch('[https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription](https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription)', {
-		            method: 'POST',
-		            headers: { 'Content-Type': 'application/json' },
-		            body: JSON.stringify({
-		                subscriptionID: data.subscriptionID
-		            })
-		        })
-		        .then(response => response.json())
-		        .then(result => {
-		            if (result.status === 'verificado') {
-		                // Muestra un mensaje de éxito al usuario en la página
-		                alert('¡Gracias por tu suscripción! Hemos verificado tu pago y te enviaremos un correo en breve.');
-		            } else {
-		                alert('Hubo un problema al verificar tu pago. Por favor, contacta a soporte.');
-		            }
-		        })
-		        .catch(error => {
-		            console.error('Error:', error);
-		            alert('Ocurrió un error. Por favor, contacta a soporte.');
-		        });
-		    }
-		}).render('#paypal-button-container-P-9DB8761963542112PNCYUFHY');
+    // --- LÓGICA DE BOTONES PAYPAL (VERSIÓN FINAL AUTOMATIZADA) ---
+
+    // Función genérica para manejar la aprobación y llamar al backend
+    const handleSubscription = (data, planName, planId) => {
+        console.log(`Suscripción iniciada para el plan ${planName}: ${data.subscriptionID}`);
+        
+        // La URL de tu backend principal
+        const VERIFY_URL = 'https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription';
+
+        fetch(VERIFY_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                subscriptionID: data.subscriptionID,
+                planId: planId, // ¡CRÍTICO! Enviamos el ID del Plan
+                planName: planName // ¡CRÍTICO! Enviamos el nombre del Plan
+            })
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.status === 'verificado') {
+                // Aquí podrías mostrar un modal de agradecimiento más elegante
+                alert(`¡Gracias por suscribirte al plan ${planName}! Hemos verificado tu pago y estamos creando tu sitio. Recibirás un correo en breve.`);
+            } else {
+                console.error('Respuesta del servidor no verificada:', result);
+                alert('Hubo un problema al verificar tu pago. Por favor, contacta a soporte.');
+            }
+        })
+        .catch(error => {
+            console.error('Error llamando al backend:', error);
+            alert('Ocurrió un error de conexión. Por favor, contacta a soporte para confirmar tu suscripción.');
+        });
+    };
+
+    // Botón Plan Esencial
+    paypal.Buttons({
+        style: { shape: 'pill', color: 'blue', layout: 'vertical', label: 'subscribe' },
+        createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-8KD45673HW2618100NCYUADY' }),
+        onApprove: (data, actions) => handleSubscription(data, 'Esencial', 'P-8KD45673HW2618100NCYUADY')
+    }).render('#paypal-button-container-P-8KD45673HW2618100NCYUADY');
+
+    // Botón Plan Crecimiento
+    paypal.Buttons({
+        style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'subscribe' },
+        createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-1T955501L66107610NCYUMBI' }),
+        onApprove: (data, actions) => handleSubscription(data, 'Crecimiento', 'P-1T955501L66107610NCYUMBI')
+    }).render('#paypal-button-container-P-1T955501L66107610NCYUMBI');
+
+    // Botón Plan Impacto
+    paypal.Buttons({
+        style: { shape: 'pill', color: 'black', layout: 'vertical', label: 'subscribe' },
+        createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-9DB8761963542112PNCYUFHY' }),
+        onApprove: (data, actions) => handleSubscription(data, 'Impacto', 'P-9DB8761963542112PNCYUFHY')
+    }).render('#paypal-button-container-P-9DB8761963542112PNCYUFHY');
+
 
         // --- LÓGICA DEL POPUP ---
         const popupContainer = document.getElementById('popup-container');
