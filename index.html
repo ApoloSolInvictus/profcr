@@ -744,7 +744,7 @@
 
         const getGeminiResponse = async (userInput) => {
             // La URL de tu nuevo backend. Cuando lo despliegues, esta URL cambiará.
-            const API_URL = 'https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/';
+            const API_URL = 'https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/chat';
 
             // Preparamos el historial para enviarlo al backend
             const historyForApi = conversationHistory.map(item => ({
@@ -844,6 +844,7 @@
     </script>
 </body>
 </html>
+
 
 
 
