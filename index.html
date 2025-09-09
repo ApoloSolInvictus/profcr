@@ -611,14 +611,13 @@
         });
 
 
+    // --- LÓGICA DE BOTONES PAYPAL (VERSIÓN FINAL Y CORREGIDA) ---
 
-    // --- LÓGICA DE BOTONES PAYPAL (VERSIÓN FINAL AUTOMATIZADA) ---
-
-    // Función genérica para manejar la aprobación y llamar al backend
+    // Esta es la función clave que se comunica con tu backend
     const handleSubscription = (data, planName, planId) => {
-        console.log(`Suscripción iniciada para el plan ${planName}: ${data.subscriptionID}`);
+        console.log(`Iniciando verificación para el plan ${planName} con ID de suscripción: ${data.subscriptionID}`);
         
-        // La URL de tu backend principal
+        // La URL de tu backend principal en Heroku
         const VERIFY_URL = 'https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription';
 
         fetch(VERIFY_URL, {
@@ -626,41 +625,40 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 subscriptionID: data.subscriptionID,
-                planId: planId, // ¡CRÍTICO! Enviamos el ID del Plan
-                planName: planName // ¡CRÍTICO! Enviamos el nombre del Plan
+                planId: planId,       // <-- ESTA LÍNEA ES CRUCIAL
+                planName: planName    // <-- Y ESTA TAMBIÉN
             })
         })
         .then(response => response.json())
         .then(result => {
             if (result.status === 'verificado') {
-                // Aquí podrías mostrar un modal de agradecimiento más elegante
-                alert(`¡Gracias por suscribirte al plan ${planName}! Hemos verificado tu pago y estamos creando tu sitio. Recibirás un correo en breve.`);
+                alert(`¡Gracias por tu suscripción al plan ${planName}! Tu sitio web está siendo creado en este momento y recibirás un correo de confirmación en breve.`);
             } else {
-                console.error('Respuesta del servidor no verificada:', result);
-                alert('Hubo un problema al verificar tu pago. Por favor, contacta a soporte.');
+                console.error('La verificación falló. Respuesta del servidor:', result);
+                alert('Hubo un problema al verificar tu pago. Por favor, contacta a soporte para completar el proceso.');
             }
         })
         .catch(error => {
-            console.error('Error llamando al backend:', error);
+            console.error('Error de conexión con el backend:', error);
             alert('Ocurrió un error de conexión. Por favor, contacta a soporte para confirmar tu suscripción.');
         });
     };
 
-    // Botón Plan Esencial
+    // Botón para el Plan Esencial
     paypal.Buttons({
         style: { shape: 'pill', color: 'blue', layout: 'vertical', label: 'subscribe' },
         createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-8KD45673HW2618100NCYUADY' }),
         onApprove: (data, actions) => handleSubscription(data, 'Esencial', 'P-8KD45673HW2618100NCYUADY')
     }).render('#paypal-button-container-P-8KD45673HW2618100NCYUADY');
 
-    // Botón Plan Crecimiento
+    // Botón para el Plan Crecimiento
     paypal.Buttons({
         style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'subscribe' },
         createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-1T955501L66107610NCYUMBI' }),
         onApprove: (data, actions) => handleSubscription(data, 'Crecimiento', 'P-1T955501L66107610NCYUMBI')
     }).render('#paypal-button-container-P-1T955501L66107610NCYUMBI');
 
-    // Botón Plan Impacto
+    // Botón para el Plan Impacto
     paypal.Buttons({
         style: { shape: 'pill', color: 'black', layout: 'vertical', label: 'subscribe' },
         createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-9DB8761963542112PNCYUFHY' }),
