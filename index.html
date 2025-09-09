@@ -618,24 +618,96 @@
             createSubscription: function(data, actions) {
                 return actions.subscription.create({ plan_id: 'P-8KD45673HW2618100NCYUADY' });
             },
-            onApprove: function(data, actions) { console.log('Suscripción completada: ' + data.subscriptionID); }
-        }).render('#paypal-button-container-P-8KD45673HW2618100NCYUADY');
+            onApprove: function(data, actions) {
+		        console.log('Suscripción iniciada: ' + data.subscriptionID);
+		        
+		        // Llamamos a nuestro backend para verificar
+		        fetch('[https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription](https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription)', {
+		            method: 'POST',
+		            headers: { 'Content-Type': 'application/json' },
+		            body: JSON.stringify({
+		                subscriptionID: data.subscriptionID
+		            })
+		        })
+		        .then(response => response.json())
+		        .then(result => {
+		            if (result.status === 'verificado') {
+		                // Muestra un mensaje de éxito al usuario en la página
+		                alert('¡Gracias por tu suscripción! Hemos verificado tu pago y te enviaremos un correo en breve.');
+		            } else {
+		                alert('Hubo un problema al verificar tu pago. Por favor, contacta a soporte.');
+		            }
+		        })
+		        .catch(error => {
+		            console.error('Error:', error);
+		            alert('Ocurrió un error. Por favor, contacta a soporte.');
+		        });
+		    }
+		}).render('#paypal-button-container-P-8KD45673HW2618100NCYUADY');
 
         paypal.Buttons({
             style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'subscribe' },
             createSubscription: function(data, actions) {
                 return actions.subscription.create({ plan_id: 'P-1T955501L66107610NCYUMBI' });
             },
-            onApprove: function(data, actions) { console.log('Suscripción completada: ' + data.subscriptionID); }
-        }).render('#paypal-button-container-P-1T955501L66107610NCYUMBI');
+            onApprove: function(data, actions) {
+		        console.log('Suscripción iniciada: ' + data.subscriptionID);
+		        
+		        // Llamamos a nuestro backend para verificar
+		        fetch('[https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription](https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription)', {
+		            method: 'POST',
+		            headers: { 'Content-Type': 'application/json' },
+		            body: JSON.stringify({
+		                subscriptionID: data.subscriptionID
+		            })
+		        })
+		        .then(response => response.json())
+		        .then(result => {
+		            if (result.status === 'verificado') {
+		                // Muestra un mensaje de éxito al usuario en la página
+		                alert('¡Gracias por tu suscripción! Hemos verificado tu pago y te enviaremos un correo en breve.');
+		            } else {
+		                alert('Hubo un problema al verificar tu pago. Por favor, contacta a soporte.');
+		            }
+		        })
+		        .catch(error => {
+		            console.error('Error:', error);
+		            alert('Ocurrió un error. Por favor, contacta a soporte.');
+		        });
+		    }
+		}).render('#paypal-button-container-P-1T955501L66107610NCYUMBI');
 
         paypal.Buttons({
             style: { shape: 'pill', color: 'black', layout: 'vertical', label: 'subscribe' },
             createSubscription: function(data, actions) {
                 return actions.subscription.create({ plan_id: 'P-9DB8761963542112PNCYUFHY' });
             },
-            onApprove: function(data, actions) { console.log('Suscripción completada: ' + data.subscriptionID); }
-        }).render('#paypal-button-container-P-9DB8761963542112PNCYUFHY');
+            onApprove: function(data, actions) {
+		        console.log('Suscripción iniciada: ' + data.subscriptionID);
+		        
+		        // Llamamos a nuestro backend para verificar
+		        fetch('[https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription](https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription)', {
+		            method: 'POST',
+		            headers: { 'Content-Type': 'application/json' },
+		            body: JSON.stringify({
+		                subscriptionID: data.subscriptionID
+		            })
+		        })
+		        .then(response => response.json())
+		        .then(result => {
+		            if (result.status === 'verificado') {
+		                // Muestra un mensaje de éxito al usuario en la página
+		                alert('¡Gracias por tu suscripción! Hemos verificado tu pago y te enviaremos un correo en breve.');
+		            } else {
+		                alert('Hubo un problema al verificar tu pago. Por favor, contacta a soporte.');
+		            }
+		        })
+		        .catch(error => {
+		            console.error('Error:', error);
+		            alert('Ocurrió un error. Por favor, contacta a soporte.');
+		        });
+		    }
+		}).render('#paypal-button-container-P-9DB8761963542112PNCYUFHY');
 
         // --- LÓGICA DEL POPUP ---
         const popupContainer = document.getElementById('popup-container');
@@ -844,6 +916,7 @@
     </script>
 </body>
 </html>
+
 
 
 
