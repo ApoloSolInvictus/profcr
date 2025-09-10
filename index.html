@@ -611,59 +611,62 @@
         });
 
 
-    // --- LÓGICA DE BOTONES PAYPAL (VERSIÓN FINAL Y CORREGIDA) ---
-
-    // Esta es la función clave que se comunica con tu backend
-    const handleSubscription = (data, planName, planId) => {
-        console.log(`Iniciando verificación para el plan ${planName} con ID de suscripción: ${data.subscriptionID}`);
-        
-        // La URL de tu backend principal en Heroku
-        const VERIFY_URL = 'https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription';
-
-        fetch(VERIFY_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                subscriptionID: data.subscriptionID,
-                planId: planId,       // <-- ESTA LÍNEA ES CRUCIAL
-                planName: planName    // <-- Y ESTA TAMBIÉN
-            })
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result.status === 'verificado') {
-                alert(`¡Gracias por tu suscripción al plan ${planName}! Tu sitio web está siendo creado en este momento y recibirás un correo de confirmación en breve.`);
-            } else {
-                console.error('La verificación falló. Respuesta del servidor:', result);
-                alert('Hubo un problema al verificar tu pago. Por favor, contacta a soporte para completar el proceso.');
-            }
-        })
-        .catch(error => {
-            console.error('Error de conexión con el backend:', error);
-            alert('Ocurrió un error de conexión. Por favor, contacta a soporte para confirmar tu suscripción.');
-        });
-    };
-
-    // Botón para el Plan Esencial
-    paypal.Buttons({
-        style: { shape: 'pill', color: 'blue', layout: 'vertical', label: 'subscribe' },
-        createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-8KD45673HW2618100NCYUADY' }),
-        onApprove: (data, actions) => handleSubscription(data, 'Esencial', 'P-8KD45673HW2618100NCYUADY')
-    }).render('#paypal-button-container-P-8KD45673HW2618100NCYUADY');
-
-    // Botón para el Plan Crecimiento
-    paypal.Buttons({
-        style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'subscribe' },
-        createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-1T955501L66107610NCYUMBI' }),
-        onApprove: (data, actions) => handleSubscription(data, 'Crecimiento', 'P-1T955501L66107610NCYUMBI')
-    }).render('#paypal-button-container-P-1T955501L66107610NCYUMBI');
-
-    // Botón para el Plan Impacto
-    paypal.Buttons({
-        style: { shape: 'pill', color: 'black', layout: 'vertical', label: 'subscribe' },
-        createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-9DB8761963542112PNCYUFHY' }),
-        onApprove: (data, actions) => handleSubscription(data, 'Impacto', 'P-9DB8761963542112PNCYUFHY')
-    }).render('#paypal-button-container-P-9DB8761963542112PNCYUFHY');
+	    // --- LÓGICA DE BOTONES PAYPAL (VERSIÓN FINAL Y CORREGIDA) ---
+	
+	    const handleSubscription = (data, planName, planId) => {
+	        console.log(`Iniciando verificación para el plan ${planName} con ID de suscripción: ${data.subscriptionID}`);
+	        
+	        const VERIFY_URL = 'https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription';
+	
+	        fetch(VERIFY_URL, {
+	            method: 'POST',
+	            headers: { 'Content-Type': 'application/json' },
+	            body: JSON.stringify({
+	                subscriptionID: data.subscriptionID,
+	                planId: planId,       // <-- ESTA LÍNEA ARREGLA LA CONEXIÓN
+	                planName: planName    // <-- Y ESTA TAMBIÉN
+	            })
+	        })
+	        .then(response => {
+	            // Primero, verificamos si la respuesta del servidor fue exitosa (código 200)
+	            if (!response.ok) {
+	                // Si no, lanzamos un error para que lo capture el .catch()
+	                throw new Error(`El servidor respondió con un error: ${response.status}`);
+	            }
+	            return response.json();
+	        })
+	        .then(result => {
+	            if (result.status === 'verificado') {
+	                alert(`¡Gracias por tu suscripción al plan ${planName}! Tu sitio web está siendo creado y recibirás un correo en breve.`);
+	            } else {
+	                // Esto podría pasar si la suscripción no está activa por alguna razón
+	                alert('La verificación de tu pago no fue exitosa. Por favor, contacta a soporte.');
+	            }
+	        })
+	        .catch(error => {
+	            console.error('Error durante el proceso de verificación:', error);
+	            alert('Ocurrió un error al conectar con nuestros servicios. Por favor, contacta a soporte para confirmar tu suscripción.');
+	        });
+	    };
+	
+	    // Botones de PayPal (cada uno llama a la función de arriba con los datos correctos)
+	    paypal.Buttons({
+	        style: { shape: 'pill', color: 'blue', layout: 'vertical', label: 'subscribe' },
+	        createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-8KD45673HW2618100NCYUADY' }),
+	        onApprove: (data, actions) => handleSubscription(data, 'Esencial', 'P-8KD45673HW2618100NCYUADY')
+	    }).render('#paypal-button-container-P-8KD45673HW2618100NCYUADY');
+	
+	    paypal.Buttons({
+	        style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'subscribe' },
+	        createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-1T955501L66107610NCYUMBI' }),
+	        onApprove: (data, actions) => handleSubscription(data, 'Crecimiento', 'P-1T955501L66107610NCYUMBI')
+	    }).render('#paypal-button-container-P-1T955501L66107610NCYUMBI');
+	
+	    paypal.Buttons({
+	        style: { shape: 'pill', color: 'black', layout: 'vertical', label: 'subscribe' },
+	        createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-9DB8761963542112PNCYUFHY' }),
+	        onApprove: (data, actions) => handleSubscription(data, 'Impacto', 'P-9DB8761963542112PNCYUFHY')
+	    }).render('#paypal-button-container-P-9DB8761963542112PNCYUFHY');
 
 
         // --- LÓGICA DEL POPUP ---
@@ -873,6 +876,7 @@
     </script>
 </body>
 </html>
+
 
 
 
