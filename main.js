@@ -1,5 +1,4 @@
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
         // --- BASE DE DATOS LOCAL DE EJEMPLO ---
         const database = [
@@ -400,4 +399,3 @@
             }
 		})();
     });
-    </script>
