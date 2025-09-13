@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- BASE DE DATOS LOCAL DE EJEMPLO ---
-    // (Sin cambios aquí)
     const database = [
         { name: 'Arq. Sofía Castro', category: 'Plan Esencial', location: 'Ejemplo', description: 'Diseño de CV Digital en ProfCR, si desea obtenerlo siga las instrucciones de este sitio web.', imageUrl: 'images/modelo1.jpg', subdomain: 'esencial', tags: ['arquitecta', 'diseño', 'planos', 'construccion', 'cartago', 'sofia', 'castro'] },
         { name: 'Barbería Luka', category: 'Plan Crecimiento', location: 'San Pedro', description: 'Diseño de Portafolios en ProfCR, ahora utilice el buscador de perfiles, escriba sólo una "s" y vea todos.', imageUrl: 'images/modelo2.jpg', subdomain: 'crecimiento', tags: ['barberia', 'san pedro', 'cortes', 'pelo', 'barba', 'luka'] },
@@ -15,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     // --- LÓGICA DEL BUSCADOR ---
-    // (Sin cambios aquí)
     const searchInput = document.getElementById('search-input');
     const resultsContainer = document.getElementById('results-container');
     const resultsTitle = document.getElementById('results-title');
@@ -65,9 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     renderResults(database.slice(0, 3));
 
-
     // --- LÓGICA DE MENÚ MÓVIL Y DESKTOP ---
-    // (Sin cambios aquí)
     const menuBtn = document.getElementById('menu-btn');
     const closeBtn = document.getElementById('close-btn');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -152,12 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
     // --- LÓGICA DE BOTONES PAYPAL ---
-    // (Sin cambios aquí)
     const handleSubscription = (data, planName, planId) => {
         console.log(`Iniciando verificación para el plan ${planName} con ID de suscripción: ${data.subscriptionID}`);
-        // ¡IMPORTANTE! Asegúrate de que esta URL coincida con tu backend de Heroku para verificar pagos.
         const VERIFY_URL = 'https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription';
         fetch(VERIFY_URL, {
             method: 'POST',
@@ -208,7 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- LÓGICA DEL POPUP ---
-    // (Sin cambios aquí)
     const popupContainer = document.getElementById('popup-container');
     const popupBackdrop = document.getElementById('popup-backdrop');
     const popupBox = document.getElementById('popup-box');
@@ -244,142 +236,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(showPopup, 7000);
 
-
-    // --- LÓGICA DEL CHATBOT CON CONEXIÓN A GEMINI (ACTUALIZADO) ---
-    const chatToggleBtn = document.getElementById('chat-toggle-btn');
-    const chatWindow = document.getElementById('chat-window');
-    const chatIconOpen = document.getElementById('chat-icon-open');
-    const chatIconClose = document.getElementById('chat-icon-close');
-    const chatMessages = document.getElementById('chat-messages');
-    const chatForm = document.getElementById('chat-form');
-    const chatInput = document.getElementById('chat-input');
-    const chatSendBtn = document.getElementById('chat-send-btn');
-    
-    // El historial ahora se manejará con el formato correcto para el modelo de Gemini.
-    let conversationHistory = [];
-
-    // Función para abrir/cerrar el chat
-    if (chatToggleBtn) {
-        chatToggleBtn.addEventListener('click', () => {
-            if (!chatWindow || !chatIconOpen || !chatIconClose) return;
-            const isHidden = chatWindow.classList.contains('hidden');
-            if (isHidden) {
-                chatWindow.classList.remove('hidden');
-                setTimeout(() => chatWindow.classList.remove('opacity-0', 'translate-y-4'), 10);
-                chatIconOpen.classList.add('hidden');
-                chatIconClose.classList.remove('hidden');
-            } else {
-                chatWindow.classList.add('opacity-0', 'translate-y-4');
-                setTimeout(() => chatWindow.classList.add('hidden'), 300);
-                chatIconOpen.classList.remove('hidden');
-                chatIconClose.classList.add('hidden');
-            }
-        });
-    }
-
-    // Función para añadir mensajes a la interfaz del chat
-    const addMessage = (text, sender) => {
-        if (!chatMessages) return;
-        const messageDiv = document.createElement('div');
-        messageDiv.classList.add('flex', sender === 'user' ? 'justify-end' : 'justify-start', 'animate-fade-in-up');
-        
-        const bubble = document.createElement('div');
-        bubble.classList.add('chat-bubble', 'p-3', 'rounded-lg', 'max-w-[85%]', 'break-words');
-        
-        if (sender === 'user') {
-            bubble.classList.add('bg-blue-600', 'text-white', 'rounded-br-none');
-            bubble.textContent = text; // Usamos textContent para seguridad
-        } else {
-            bubble.classList.add('bg-white', 'text-gray-800', 'rounded-bl-none', 'shadow-sm');
-            // Usamos una librería como 'marked' si quisiéramos renderizar Markdown de forma segura.
-            // Por ahora, para simplicidad, usamos innerHTML pero con cuidado.
-            bubble.innerHTML = text.replace(/\n/g, '<br>'); // Reemplaza saltos de línea por <br>
-        }
-        
-        messageDiv.appendChild(bubble);
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    };
-    
-    // Funciones para el indicador de "escribiendo..."
-    const addTypingIndicator = () => {
-        if (!chatMessages) return;
-        const typingDiv = document.createElement('div');
-        typingDiv.id = 'typing-indicator';
-        typingDiv.classList.add('flex', 'justify-start');
-        typingDiv.innerHTML = `
-            <div class="chat-bubble bg-white p-3 rounded-lg rounded-bl-none shadow-sm">
-                <div class="typing-indicator"><span></span><span></span><span></span></div>
-            </div>`;
-        chatMessages.appendChild(typingDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    };
-    
-    const removeTypingIndicator = () => {
-        const indicator = document.getElementById('typing-indicator');
-        if (indicator) indicator.remove();
-    };
-
-    // Función MEJORADA para obtener la respuesta de Gemini a través de nuestro nuevo backend
-    const getGeminiResponse = async (userInput) => {
-        // ¡IMPORTANTE! Reemplaza esta URL con la URL de tu backend en Heroku.
-        const API_URL = 'https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/chat';
-
-        try {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    history: conversationHistory, // Enviamos el historial que gestiona el frontend
-                    message: userInput
-                })
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || `Error en el servidor: ${response.statusText}`);
-            }
-
-            const data = await response.json();
-            const aiResponse = data.response;
-
-            // Actualizamos el historial con el nuevo intercambio
-            conversationHistory.push({ role: "user", parts: [{ text: userInput }] });
-            conversationHistory.push({ role: "model", parts: [{ text: aiResponse }] });
-            
-            return aiResponse;
-        } catch (error) {
-            console.error("Error al contactar el backend:", error);
-            return "Lo siento, estoy teniendo problemas para conectarme en este momento. Por favor, intenta de nuevo más tarde o contacta a soporte en planes@profcr.com.";
-        }
-    };
-
-    // Manejador del envío del formulario del chat
-    const handleChatSubmit = async (e) => {
-        e.preventDefault();
-        if (!chatInput || !chatSendBtn) return;
-        const userMessage = chatInput.value.trim();
-        if (userMessage === '') return;
-        
-        addMessage(userMessage, 'user');
-        chatInput.value = '';
-        chatSendBtn.disabled = true;
-        addTypingIndicator();
-        
-        const aiResponse = await getGeminiResponse(userMessage);
-        
-        removeTypingIndicator();
-        addMessage(aiResponse, 'ai');
-        chatSendBtn.disabled = false;
-        chatInput.focus();
-    };
-
-    if (chatForm) chatForm.addEventListener('submit', handleChatSubmit);
-
-    // Habilitar/deshabilitar el botón de envío
-    if (chatInput) {
-        chatInput.addEventListener('input', () => {
-            if (chatSendBtn) chatSendBtn.disabled = chatInput.value.trim() === '';
-        });
-    }
 });
