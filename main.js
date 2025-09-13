@@ -235,5 +235,4 @@ document.addEventListener('DOMContentLoaded', () => {
     if (popupBackdrop) popupBackdrop.addEventListener('click', hidePopup);
 
     setTimeout(showPopup, 7000);
-
 });
