@@ -42,9 +42,73 @@
 	  "name": "ProfCR",
 	  "url": "https://profcr.com/",
 	  "logo": "https://profcr.com/images/logo.png",
-	  "description": "Servicio de creación de sitios web y CVs digitales para profesionales en Costa Rica, potenciado por Inteligencia Artificial."
+	  "description": "Servicio de creación de sitios web y CVs digitales para profesionales en Costa Rica, potenciado por Inteligencia Artificial.",
+	  "contactPoint": {
+	    "@type": "ContactPoint",
+	    "email": "planes@profcr.com",
+	    "contactType": "Customer Service"
+	  },
+	  "address": {
+	    "@type": "PostalAddress",
+	    "addressCountry": "CR",
+	    "addressLocality": "San José"
+	  },
+	  "sameAs": [
+	    "https://www.facebook.com/profcr/",
+	    "https://x.com/profcr",
+	    "https://www.instagram.com/profcr/"
+	  ],
+	  "potentialAction": {
+	    "@type": "SearchAction",
+	    "target": "https://profcr.com/#directorio?q={search_term_string}",
+	    "query-input": "required name=search_term_string"
+	  },
+	  "hasOfferCatalog": {
+	    "@type": "OfferCatalog",
+	    "name": "Planes de Sitios Web",
+	    "itemListElement": [
+	      {
+	        "@type": "Offer",
+	        "name": "Plan Esencial",
+	        "description": "Tu CV digital. Un sitio web de una página con diseño profesional y adaptable.",
+	        "url": "https://esencial.profcr.com/",
+	        "priceSpecification": {
+	          "@type": "PriceSpecification",
+	          "price": "29",
+	          "priceCurrency": "USD",
+	          "valueAddedTaxIncluded": "false",
+	          "unitText": "mes"
+	        }
+	      },
+	      {
+	        "@type": "Offer",
+	        "name": "Plan Crecimiento",
+	        "description": "La solución completa para crecer. Sitio web de hasta 5 páginas con galería y formulario.",
+	        "url": "https://crecimiento.profcr.com/",
+	        "priceSpecification": {
+	          "@type": "PriceSpecification",
+	          "price": "49",
+	          "priceCurrency": "USD",
+	          "valueAddedTaxIncluded": "false",
+	          "unitText": "mes"
+	        }
+	      },
+	      {
+	        "@type": "Offer",
+	        "name": "Plan Impacto",
+	        "description": "Conviértete en un referente. Todo lo del Plan Crecimiento más una sección de Blog y SEO inicial.",
+	        "url": "https://impacto.profcr.com/",
+	        "priceSpecification": {
+	          "@type": "PriceSpecification",
+	          "price": "79",
+	          "priceCurrency": "USD",
+	          "valueAddedTaxIncluded": "false",
+	          "unitText": "mes"
+	        }
+	      }
+	    ]
+	  }
 	}
-	</script>
 </head>
 <body class="antialiased">
 
@@ -367,5 +431,6 @@
     <script src="main.js" defer></script>
 </body>
 </html>
+
 
 
