@@ -277,9 +277,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const bubble = document.createElement('div');
         bubble.classList.add('chat-bubble', 'p-3', 'rounded-lg');
-        bubble.classList.add(sender === 'user' ? 'bg-blue-600' : 'bg-gray-200', sender === 'user' ? 'text-white' : 'text-gray-800');
-        bubble.classList.add(sender === 'user' ? 'rounded-br-none' : 'rounded-bl-none');
-        bubble.textContent = text;
+        if (sender === 'user') {
+            bubble.classList.add('bg-blue-600', 'text-white', 'rounded-br-none');
+        } else {
+            bubble.classList.add('bg-white', 'text-gray-800', 'rounded-bl-none');
+        }
+        bubble.innerHTML = text; // Usamos innerHTML para renderizar el formato del AI
         
         messageDiv.appendChild(bubble);
         chatMessages.appendChild(messageDiv);
@@ -292,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
         typingDiv.id = 'typing-indicator';
         typingDiv.classList.add('flex', 'justify-start');
         typingDiv.innerHTML = `
-            <div class="chat-bubble bg-gray-200 p-3 rounded-lg rounded-bl-none">
+            <div class="chat-bubble bg-white p-3 rounded-lg rounded-bl-none">
                 <div class="typing-indicator">
                     <span></span><span></span><span></span>
                 </div>
@@ -308,10 +311,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const getGeminiResponse = async (userInput) => {
         const API_URL = 'https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/chat';
-        const historyForApi = conversationHistory.map(item => ({
-            role: item.role,
-            parts: item.parts.map(p => ({ text: p.text }))
-        }));
+        
+        // El nuevo backend maneja el historial a partir del system prompt, 
+        // pero seguimos enviando el historial del cliente para futuras mejoras.
+        const historyForApi = conversationHistory;
 
         try {
             const response = await fetch(API_URL, {
@@ -324,12 +327,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                throw new Error(`Error en el servidor: ${response.statusText}`);
+                const errorData = await response.json();
+                throw new Error(errorData.error || `Error en el servidor: ${response.statusText}`);
             }
 
             const data = await response.json();
             const aiResponse = data.response;
 
+            // Actualizamos historial
             conversationHistory.push({ role: "user", parts: [{ text: userInput }] });
             conversationHistory.push({ role: "model", parts: [{ text: aiResponse }] });
             
@@ -345,14 +350,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!chatInput || !chatSendBtn) return;
         const userMessage = chatInput.value.trim();
         if (userMessage === '') return;
+        
         addMessage(userMessage, 'user');
         chatInput.value = '';
         chatSendBtn.disabled = true;
         addTypingIndicator();
+        
         const aiResponse = await getGeminiResponse(userMessage);
+        
         removeTypingIndicator();
         addMessage(aiResponse, 'ai');
         chatSendBtn.disabled = false;
+        chatInput.focus();
     };
 
     if (chatForm) chatForm.addEventListener('submit', handleChatSubmit);
@@ -362,5 +371,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
-
