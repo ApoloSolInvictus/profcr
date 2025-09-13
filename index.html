@@ -382,47 +382,53 @@
         </div>
     </footer>
 
-    <div class="fixed bottom-6 right-6 z-[60]">
-        <button id="chat-toggle-btn" class="bg-blue-600 text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform">
-            <svg id="chat-icon-open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-            <svg id="chat-icon-close" class="w-8 h-8 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-
-        <div id="chat-window" class="chat-widget absolute bottom-20 right-0 w-80 md:w-96 bg-white rounded-2xl shadow-2xl border border-gray-200 hidden opacity-0 transform translate-y-4">
-            <div class="bg-gray-50 p-4 rounded-t-2xl flex items-center space-x-3 border-b">
-                <div class="bg-blue-600 p-2 rounded-full text-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                </div>
-                <div>
-                    <p class="font-bold text-gray-800">Asistente Gemini</p>
-                    <p class="text-xs text-green-500 font-semibold">En línea</p>
-                </div>
-            </div>
-
-            <div id="chat-messages" class="p-4 h-80 overflow-y-auto space-y-4">
-			    <div class="flex justify-start">
-			        <div class="chat-bubble bg-gray-200 text-gray-800 p-3 rounded-lg rounded-bl-none">
-			            <p>¡Hola! Soy Gemini, tu asistente de ProfCR. ¿Listo para empezar? Cuando te suscribas a un plan, puedes enviar todo el contenido de tu nuevo sitio a nuestro correo: <strong>planes@profcr.com</strong>. ¿Tienes alguna pregunta sobre los planes?</p>
+			<!-- Pega este bloque completo al final de tu <body>, justo antes del script de PayPal -->
+			<div class="fixed bottom-6 right-6 z-[60]">
+			    <button id="chat-toggle-btn" class="bg-blue-600 text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform">
+			        <svg id="chat-icon-open" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+			        <svg id="chat-icon-close" class="w-8 h-8 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+			    </button>
+			
+			    <div id="chat-window" class="chat-widget absolute bottom-20 right-0 w-80 md:w-96 bg-gray-100 rounded-2xl shadow-2xl border border-gray-200/80 hidden opacity-0 transform translate-y-4 flex flex-col">
+			        <div class="bg-white p-4 rounded-t-2xl flex items-center space-x-3 border-b">
+			            <div class="bg-blue-600 p-2 rounded-full text-white">
+			                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+			            </div>
+			            <div>
+			                <p class="font-bold text-gray-800">Asistente Gemini</p>
+			                <p class="text-xs text-green-500 font-semibold">En línea</p>
+			            </div>
+			        </div>
+			
+			        <div id="chat-messages" class="p-4 flex-1 overflow-y-auto space-y-4">
+			            <!-- Mensaje de bienvenida inicial -->
+			            <div class="flex justify-start">
+			                <div class="chat-bubble bg-white text-gray-800 p-3 rounded-lg rounded-bl-none">
+			                    <p>¡Hola! Soy Gemini, tu asistente de ProfCR. ¿Tienes alguna pregunta sobre nuestros planes para crear tu sitio web?</p>
+			                </div>
+			            </div>
+			        </div>
+			
+			        <div class="p-4 border-t bg-white rounded-b-2xl">
+			            <form id="chat-form" class="relative">
+			                <input id="chat-input" type="text" placeholder="Escribe tu pregunta..." class="w-full pl-4 pr-12 py-2 bg-gray-100 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" autocomplete="off">
+			                <button id="chat-send-btn" type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors disabled:bg-blue-400">
+			                    <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+			                </button>
+			            </form>
+			             <p class="text-xs text-gray-400 text-center mt-2">Asistente virtual potenciado por IA.</p>
 			        </div>
 			    </div>
 			</div>
 
-            <div class="p-4 border-t">
-			    <form id="chat-form" class="relative">
-			        <input id="chat-input" type="text" placeholder="Escribe tu pregunta..." class="w-full pl-4 pr-12 py-2 bg-gray-100 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" autocomplete="off">
-			        <button id="chat-send-btn" type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors disabled:bg-blue-400">
-			            <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-			        </button>
-			    </form>
-			     <p class="text-xs text-gray-400 text-center mt-2">Asistente virtual potenciado por IA.</p>
-			</div>
-
+			
 	<script src="https://www.paypal.com/sdk/js?client-id=AbLAjuHJ0WgW_kaDz3uWmNSrfe0q2lT1JC0d4ju78svrQF68R5EOozVwFJhAGQoZfqAA7jQw4z0hpFtO&components=buttons&vault=true&intent=subscription"></script>
 
     <!-- Conexión al archivo JavaScript externo -->
     <script src="main.js" defer></script>
 </body>
 </html>
+
 
 
 
