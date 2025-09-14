@@ -22,16 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!resultsContainer) return;
         resultsContainer.innerHTML = '';
         if (data.length === 0) {
-            resultsContainer.innerHTML = `<p class="col-span-full text-center text-gray-500">No se encontraron resultados para tu búsqueda.</p>`;
+            resultsContainer.innerHTML = `<p class="col-span-full text-center text-gray-500">No se encontraron resultados.</p>`;
             return;
         }
         data.forEach((item, index) => {
             const profileUrl = `https://${item.subdomain}.profcr.com`;
             const card = `
             <a href="${profileUrl}" target="_blank" class="block bg-white rounded-2xl overflow-hidden card-hover border border-gray-200/50 animate-fade-in-up" style="animation-delay: ${index * 100}ms;">
-                <div class="w-full h-56 bg-gray-200">
-                    <img src="${item.imageUrl}" alt="${item.name}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/eeeeee/999999?text=Imagen+no+disponible';">
-                </div>
+                <div class="w-full h-56 bg-gray-200"><img src="${item.imageUrl}" alt="${item.name}" class="w-full h-full object-cover"></div>
                 <div class="p-6">
                     <p class="text-sm font-medium text-blue-600 mb-1">${item.category} • ${item.location}</p>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">${item.name}</h3>
@@ -43,18 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const performSearch = () => {
-        if (!searchInput || !resultsTitle) return;
+        if (!searchInput) return;
         const query = searchInput.value.toLowerCase().trim();
-        if (!query) {
-            resultsTitle.textContent = 'Últimos profesionales agregados';
-            renderResults(database.slice(0, 3));
-            return;
-        }
-        resultsTitle.textContent = 'Resultados de la búsqueda';
-        const filteredData = database.filter(item => {
-            const searchableString = `${item.name} ${item.category} ${item.location} ${item.tags.join(' ')}`.toLowerCase();
-            return searchableString.includes(query);
-        });
+        resultsTitle.textContent = query ? 'Resultados de la búsqueda' : 'Últimos profesionales agregados';
+        const filteredData = query ? database.filter(item => `${item.name} ${item.category} ${item.location} ${item.tags.join(' ')}`.toLowerCase().includes(query)) : database.slice(0, 3);
         renderResults(filteredData.slice(0, 9));
     };
 
@@ -63,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     renderResults(database.slice(0, 3));
 
-    // --- LÓGICA DE MENÚ MÓVIL Y DESKTOP ---
+    // --- LÓGICA DE MENÚS ---
     const menuBtn = document.getElementById('menu-btn');
     const closeBtn = document.getElementById('close-btn');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -75,30 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const desktopPlansBtn = document.getElementById('desktop-plans-btn');
     const desktopPlansSubmenu = document.getElementById('desktop-plans-submenu');
 
-    if (planesToggleBtn && planesSubmenu && planesChevron) {
-        planesToggleBtn.addEventListener('click', () => {
-            const isOpen = planesSubmenu.style.maxHeight;
-            if (isOpen && isOpen !== '0px') {
-                planesSubmenu.style.maxHeight = '0px';
-                planesChevron.style.transform = 'rotate(0deg)';
-            } else {
-                planesSubmenu.style.maxHeight = planesSubmenu.scrollHeight + 'px';
-                planesChevron.style.transform = 'rotate(180deg)';
-            }
-        });
-    }
+    const toggleSubmenu = (submenu, chevron) => {
+        const isOpen = submenu.style.maxHeight && submenu.style.maxHeight !== '0px';
+        submenu.style.maxHeight = isOpen ? '0px' : `${submenu.scrollHeight}px`;
+        if (chevron) chevron.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+    };
 
-    function openMenu() {
-        if (!backdrop || !mobileMenu) return;
-        backdrop.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-        setTimeout(() => {
-            backdrop.style.opacity = '1';
-            mobileMenu.classList.add('is-open');
-        }, 10);
-    }
-
-    function closeMenu() {
+    if (planesToggleBtn) planesToggleBtn.addEventListener('click', () => toggleSubmenu(planesSubmenu, planesChevron));
+    
+    const closeMenu = () => {
         if (!backdrop || !mobileMenu) return;
         backdrop.style.opacity = '0';
         mobileMenu.classList.remove('is-open');
@@ -106,98 +81,72 @@ document.addEventListener('DOMContentLoaded', () => {
             backdrop.classList.add('hidden');
             document.body.style.overflow = '';
         }, 300);
-    }
+    };
 
-    if (menuBtn) menuBtn.addEventListener('click', openMenu);
+    if (menuBtn) menuBtn.addEventListener('click', () => {
+        if (!backdrop || !mobileMenu) return;
+        backdrop.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+            backdrop.style.opacity = '1';
+            mobileMenu.classList.add('is-open');
+        }, 10);
+    });
+
     if (closeBtn) closeBtn.addEventListener('click', closeMenu);
     if (backdrop) backdrop.addEventListener('click', closeMenu);
     menuLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            if (e.target.closest('#planes-toggle-btn')) return;
-            closeMenu();
-        });
-    });
-
-    if (desktopPlansBtn) {
-        desktopPlansBtn.addEventListener('click', () => {
-            if (!desktopPlansSubmenu) return;
-            const isHidden = desktopPlansSubmenu.classList.contains('hidden');
-            if (isHidden) {
-                desktopPlansSubmenu.classList.remove('hidden');
-                setTimeout(() => {
-                    desktopPlansSubmenu.classList.remove('opacity-0', '-translate-y-2');
-                }, 10);
-            } else {
-                desktopPlansSubmenu.classList.add('opacity-0', '-translate-y-2');
-                setTimeout(() => {
-                    desktopPlansSubmenu.classList.add('hidden');
-                }, 300);
-            }
-        });
-    }
-
-    document.addEventListener('click', (e) => {
-        const menuContainer = document.getElementById('desktop-plans-menu-container');
-        if (menuContainer && !menuContainer.contains(e.target)) {
-            if (desktopPlansSubmenu) {
-                desktopPlansSubmenu.classList.add('opacity-0', '-translate-y-2');
-                setTimeout(() => {
-                    desktopPlansSubmenu.classList.add('hidden');
-                }, 300);
-            }
+        if (!link.closest('#planes-toggle-btn')) {
+            link.addEventListener('click', closeMenu);
         }
     });
 
-    // --- LÓGICA DE BOTONES PAYPAL ---
+    if (desktopPlansBtn) desktopPlansBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = desktopPlansSubmenu.classList.contains('hidden');
+        if (isHidden) {
+            desktopPlansSubmenu.classList.remove('hidden');
+            setTimeout(() => desktopPlansSubmenu.classList.remove('opacity-0', '-translate-y-2'), 10);
+        } else {
+            desktopPlansSubmenu.classList.add('opacity-0', '-translate-y-2');
+            setTimeout(() => desktopPlansSubmenu.classList.add('hidden'), 300);
+        }
+    });
+
+    document.addEventListener('click', () => {
+        if (desktopPlansSubmenu && !desktopPlansSubmenu.classList.contains('hidden')) {
+            desktopPlansSubmenu.classList.add('opacity-0', '-translate-y-2');
+            setTimeout(() => desktopPlansSubmenu.classList.add('hidden'), 300);
+        }
+    });
+
+    // --- LÓGICA DE PAYPAL ---
     const handleSubscription = (data, planName, planId) => {
-        console.log(`Iniciando verificación para el plan ${planName} con ID de suscripción: ${data.subscriptionID}`);
+        console.log(`Verificando suscripción para ${planName}: ${data.subscriptionID}`);
         const VERIFY_URL = 'https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription';
         fetch(VERIFY_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                subscriptionID: data.subscriptionID,
-                planId: planId,
-                planName: planName
-            })
+            body: JSON.stringify({ subscriptionID: data.subscriptionID, planId, planName })
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`El servidor respondió con un error: ${response.status}`);
-            }
-            return response.json();
-        })
+        .then(response => response.ok ? response.json() : Promise.reject(`Error del servidor: ${response.status}`))
         .then(result => {
             if (result.status === 'verificado') {
-                alert(`¡Gracias por tu suscripción al plan ${planName}! Tu sitio web está siendo creado y recibirás un correo en breve.`);
+                alert(`¡Gracias por tu suscripción al plan ${planName}! Recibirás un correo en breve.`);
             } else {
-                alert('La verificación de tu pago no fue exitosa. Por favor, contacta a soporte.');
+                alert('La verificación de tu pago no fue exitosa. Contacta a soporte.');
             }
         })
         .catch(error => {
-            console.error('Error durante el proceso de verificación:', error);
-            alert('Ocurrió un error al conectar con nuestros servicios. Por favor, contacta a soporte para confirmar tu suscripción.');
+            console.error('Error en la verificación:', error);
+            alert('Ocurrió un error al conectar con nuestros servicios. Contacta a soporte para confirmar tu suscripción.');
         });
     };
 
     if (typeof paypal !== 'undefined') {
-        paypal.Buttons({
-            style: { shape: 'pill', color: 'blue', layout: 'vertical', label: 'subscribe' },
-            createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-8KD45673HW2618100NCYUADY' }),
-            onApprove: (data, actions) => handleSubscription(data, 'Esencial', 'P-8KD45673HW2618100NCYUADY')
-        }).render('#paypal-button-container-P-8KD45673HW2618100NCYUADY');
-
-        paypal.Buttons({
-            style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'subscribe' },
-            createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-1T955501L66107610NCYUMBI' }),
-            onApprove: (data, actions) => handleSubscription(data, 'Crecimiento', 'P-1T955501L66107610NCYUMBI')
-        }).render('#paypal-button-container-P-1T955501L66107610NCYUMBI');
-
-        paypal.Buttons({
-            style: { shape: 'pill', color: 'black', layout: 'vertical', label: 'subscribe' },
-            createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-9DB8761963542112PNCYUFHY' }),
-            onApprove: (data, actions) => handleSubscription(data, 'Impacto', 'P-9DB8761963542112PNCYUFHY')
-        }).render('#paypal-button-container-P-9DB8761963542112PNCYUFHY');
+        paypal.Buttons({ style: { shape: 'pill', color: 'blue', layout: 'vertical', label: 'subscribe' }, createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-8KD45673HW2618100NCYUADY' }), onApprove: (data) => handleSubscription(data, 'Esencial', 'P-8KD45673HW2618100NCYUADY') }).render('#paypal-button-container-P-8KD45673HW2618100NCYUADY');
+        paypal.Buttons({ style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'subscribe' }, createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-1T955501L66107610NCYUMBI' }), onApprove: (data) => handleSubscription(data, 'Crecimiento', 'P-1T955501L66107610NCYUMBI') }).render('#paypal-button-container-P-1T955501L66107610NCYUMBI');
+        paypal.Buttons({ style: { shape: 'pill', color: 'black', layout: 'vertical', label: 'subscribe' }, createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-9DB8761963542112PNCYUFHY' }), onApprove: (data) => handleSubscription(data, 'Impacto', 'P-9DB8761963542112PNCYUFHY') }).render('#paypal-button-container-P-9DB8761963542112PNCYUFHY');
     }
 
     // --- LÓGICA DEL POPUP ---
@@ -207,21 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const popupCloseBtn = document.getElementById('popup-close-btn');
     const popupActionBtn = document.getElementById('popup-action-btn');
 
-    const showPopup = () => {
-        if (!popupContainer || !popupBackdrop || !popupBox) return;
-        const popupShown = sessionStorage.getItem('profcrPopupShown');
-        if (popupShown) return;
-        popupContainer.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-        setTimeout(() => {
-            popupBackdrop.classList.remove('opacity-0');
-            popupBox.classList.remove('opacity-0', 'scale-95');
-        }, 10);
-        sessionStorage.setItem('profcrPopupShown', 'true');
-    };
-
     const hidePopup = () => {
-        if (!popupContainer || !popupBackdrop || !popupBox) return;
+        if (!popupContainer) return;
         popupBackdrop.classList.add('opacity-0');
         popupBox.classList.add('opacity-0', 'scale-95');
         setTimeout(() => {
@@ -229,10 +165,20 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         }, 300);
     };
-    
+
+    if (popupContainer && !sessionStorage.getItem('profcrPopupShown')) {
+        setTimeout(() => {
+            popupContainer.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                popupBackdrop.classList.remove('opacity-0');
+                popupBox.classList.remove('opacity-0', 'scale-95');
+            }, 10);
+            sessionStorage.setItem('profcrPopupShown', 'true');
+        }, 7000);
+    }
+
     if (popupCloseBtn) popupCloseBtn.addEventListener('click', hidePopup);
     if (popupActionBtn) popupActionBtn.addEventListener('click', hidePopup);
     if (popupBackdrop) popupBackdrop.addEventListener('click', hidePopup);
-
-    setTimeout(showPopup, 7000);
 });
