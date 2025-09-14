@@ -141,10 +141,174 @@
     <div id="popup-container" class="fixed inset-0 z-40 flex items-center justify-center p-4 hidden"><div id="popup-backdrop" class="fixed inset-0 bg-black/50 backdrop-blur-sm popup-backdrop opacity-0"></div><div id="popup-box" class="popup-container bg-black text-white w-full max-w-md p-8 rounded-2xl shadow-2xl text-center relative opacity-0 transform scale-95"><button id="popup-close-btn" class="absolute top-4 right-4 text-white/50 hover:text-white transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button><img src="images/web-app-manifest-512x512.png" alt="ProfCR Logo" class="h-16 w-auto mx-auto mb-6"><h2 class="text-2xl font-bold mb-4">Oferta para Fundadores</h2><p class="text-white/80 mb-8">Para los primeros <strong>100 profesionales</strong> en unirse a ProfCR, regalamos el diseño de un logotipo profesional para su negocio. ¡Totalmente gratis con cualquier plan!</p><a href="#planes" id="popup-action-btn" class="inline-block bg-white text-black text-sm font-semibold py-3 px-6 rounded-full hover:bg-gray-200 transition-colors w-full">Ver Planes</a></div></div>
 
     <main>
-        </main>
+        <section id="directorio" class="text-center py-24 md:py-32 px-6 bg-white">
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-6">El profesional que buscas, <br>justo aquí.</h1>
+            <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-600 mb-10">Conecta con los mejores profesionales y servicios de Costa Rica. Fácil, rápido y confiable.</p>
+            <div class="max-w-xl mx-auto">
+                <input id="search-input" type="text" placeholder="Busca por servicio, nombre o ubicación..." class="search-input w-full h-16 pl-20 pr-6 text-lg bg-gray-50 border border-gray-200 rounded-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-300">
+            </div>
+        </section>
+
+        <section class="container mx-auto px-6 pb-24 -mt-16">
+            <h2 id="results-title" class="text-center text-sm font-semibold tracking-widest text-gray-500 uppercase mb-8">Últimos profesionales agregados</h2>
+            <div id="results-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            </div>
+        </section>
+
+        <section id="beneficios" class="py-24 md:py-32 px-6 bg-gray-50">
+            <div class="container mx-auto space-y-24">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="text-center lg:text-left">
+                        <h3 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Productividad en pantalla grande.</h3>
+                        <p class="text-lg text-gray-600">Tu CV digital cobra vida en el escritorio, presentando tu trabajo con el máximo detalle e impacto. Es tu oficina virtual, abierta para clientes potenciales 24/7.</p>
+                    </div>
+                    <div class="flex justify-center">
+                        <img src="images/laptop.png" alt="Sitio web en laptop" class="max-w-full h-auto rounded-lg">
+                    </div>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="lg:order-2 text-center lg:text-left">
+                        <h3 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Versatilidad en tus manos.</h3>
+                        <p class="text-lg text-gray-600">En una tablet, tu sitio se convierte en un portafolio interactivo. Perfecto para presentaciones uno a uno, permitiendo una navegación táctil, fluida e inmersiva.</p>
+                    </div>
+                    <div class="flex justify-center lg:order-1">
+                        <img src="images/tablet.png" alt="Sitio web en tablet" class="max-w-sm md:max-w-md h-auto rounded-lg">
+                    </div>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="text-center lg:text-left">
+                        <h3 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Conexión instantánea.</h3>
+                        <p class="text-lg text-gray-600">En el celular, cada detalle cuenta. Tu información de contacto está a un toque de distancia, convirtiendo visitantes en clientes de forma rápida y eficiente, donde sea que estén.</p>
+                    </div>
+                    <div class="flex justify-center">
+                        <img src="images/phone.png" alt="Sitio web en celular" class="max-w-[250px] h-auto rounded-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 md:py-32 px-6 bg-white text-center">
+            <div class="container mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">La Fusión Perfecta: <br>Creatividad Humana, Velocidad IA.</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-12"><a href="https://wstudiocr.com" class="text-red-600 hover:underline">W Studio</a> nace de la unión entre la visión estratégica de Apolo y la ejecución de Gemini. Esta sinergia nos permite crear sitios web de calidad superior en tiempo récord. Ofrecemos un producto sostenible y de vanguardia, haciendo el diseño profesional accesible para todos.</p>
+                <div class="flex justify-center items-center h-80">
+                    <img src="images/humanai.png" alt="Concepto de colaboración Humano-IA" class="max-h-full">
+                </div>
+                <div class="text-center mt-16">
+                    <a href="https://g.co/gemini/share/fe0942aa63d7" target="_blank" class="inline-block bg-gray-800 text-white text-sm font-semibold py-3 px-8 rounded-full hover:bg-black transition-colors">
+                        Ver el Storybook de nuestra Creación
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="storybook" class="py-24 md:py-32 px-6 bg-gray-50">
+            <div class="container mx-auto max-w-5xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight">La Evolución Digital con ProfCR</h2>
+                    <p class="mt-4 text-lg text-gray-600">Nuestra historia y por qué existimos para potenciarte.</p>
+                </div>
+                <div class="space-y-12 md:space-y-16">
+                    <div class="grid md:grid-cols-3 gap-8 items-start">
+                        <h3 class="md:col-span-1 text-2xl font-semibold text-gray-800">1. El Dilema del Profesional Moderno</h3>
+                        <div class="md:col-span-2 text-gray-600 space-y-4">
+                            <p>En el vibrante mercado de Costa Rica, miles de profesionales talentosos y negocios locales son la columna vertebral de nuestra economía. Sin embargo, muchos de ellos enfrentan un dilema moderno: son expertos en su campo, pero invisibles en el mundo digital. O peor aún, están atrapados con sitios web obsoletos, caros y que no funcionan en dispositivos móviles, proyectando una imagen que no les hace justicia.</p>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8 items-start">
+                        <h3 class="md:col-span-1 text-2xl font-semibold text-gray-800">2. Un Ecosistema, no solo una Web</h3>
+                        <div class="md:col-span-2 text-gray-600 space-y-4">
+                            <p>ProfCR nace para resolver este dilema. No somos solo una empresa de diseño web; somos un ecosistema digital. Nuestra plataforma central, ProfCR.com, actúa como un directorio de prestigio que atrae clientes y da visibilidad. Desde este "hub", cada profesional obtiene su propio sitio web, su "spoke", creando una red de confianza y profesionalismo que beneficia a todos.</p>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8 items-start">
+                        <h3 class="md:col-span-1 text-2xl font-semibold text-gray-800">3. Tu Identidad Digital a Medida</h3>
+                        <div class="md:col-span-2 text-gray-600 space-y-4">
+                            <p>Entendemos que cada profesional tiene necesidades diferentes. Por eso, hemos creado tres planes claros y sin sorpresas: el <strong>Plan Esencial</strong>, tu CV Digital para un impacto inmediato; el <strong>Plan Crecimiento</strong>, tu Portafolio Profesional para mostrar tu trabajo; y el <strong>Plan Impacto</strong>, tu Plataforma de Autoridad para convertirte en un referente con tu propio blog. Todos los planes, sin excepción, incluyen tu dominio <code>minegocio.profcr.com</code> y correo profesional <code>minegocio@profcr.com</code> sin costo adicional.</p>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8 items-start">
+                        <h3 class="md:col-span-1 text-2xl font-semibold text-gray-800">4. El Viaje de Cero a Online</h3>
+                        <div class="md:col-span-2 text-gray-600 space-y-4">
+                            <p>Nuestro proceso es la definición de simplicidad. <strong>1. Eliges tu plan. 2. Te suscribes a través de PayPal. 3. Nuestro asistente de IA te contacta para recopilar tu información.</strong> En tiempo récord, clonamos la plantilla de tu plan, la personalizamos con tu contenido y la publicamos. Sin complicaciones técnicas, sin jerga confusa. Solo resultados profesionales.</p>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8 items-start">
+                        <h3 class="md:col-span-1 text-2xl font-semibold text-gray-800">5. La Fusión: El Secreto de W Studio</h3>
+                        <div class="md:col-span-2 text-gray-600 space-y-4">
+                            <p>¿Cómo logramos esta calidad a un precio tan accesible? La respuesta es nuestra sinergia. W Studio es la fusión de la visión estratégica y el control de calidad humano de Apolo con la velocidad y eficiencia de Gemini, nuestra IA de diseño. Esta colaboración nos permite automatizar los procesos complejos, reduciendo costos y tiempos de entrega, para que tú solo te preocupes por lo que mejor sabes hacer: tu trabajo.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="text-center mt-16">
+                    <a href="https://g.co/gemini/share/1dc24b717fec" target="_blank" class="inline-block bg-gray-800 text-white text-sm font-semibold py-3 px-8 rounded-full hover:bg-black transition-colors">
+                        Ver el Storybook
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="planes" class="py-24 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold tracking-tight mb-4">Simple, transparente y sin sorpresas.</h2>
+                <p class="max-w-2xl mx-auto text-lg text-gray-600 mb-16">Elige el plan que impulse tu crecimiento. Sin contratos, cancela cuando quieras.</p>
+                <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto text-left">
+                    <div class="bg-gray-50 rounded-2xl p-8 flex flex-col border border-gray-200/80">
+                        <h3 class="text-lg font-semibold mb-2">Esencial</h3>
+                        <p class="text-gray-600 mb-6">Tu curriculum vitae digital.</p>
+                        <p class="text-5xl font-bold mb-8">$29<span class="text-xl font-medium text-gray-500"> / mes</span></p>
+                        <ul class="space-y-4 text-gray-700 mb-10 flex-grow text-sm">
+                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">✓</span>Sitio web de una página.</li>
+                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">✓</span>Diseño profesional y adaptable.</li>
+                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">✓</span>Hosting y mantenimiento incluidos.</li>
+                        </ul>
+                        <div id="paypal-button-container-P-8KD45673HW2618100NCYUADY"></div>
+                    </div>
+                    <div class="bg-gray-800 text-white rounded-2xl p-8 flex flex-col">
+                         <h3 class="text-lg font-semibold mb-2">Crecimiento <span class="text-xs bg-blue-500 text-white font-bold px-2 py-1 rounded-full ml-2">Popular</span></h3>
+                        <p class="text-gray-400 mb-6">La solución completa para crecer.</p>
+                        <p class="text-5xl font-bold mb-8">$49<span class="text-xl font-medium text-gray-400"> / mes</span></p>
+                        <ul class="space-y-4 text-gray-300 mb-10 flex-grow text-sm">
+                            <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span>Sitio web de hasta 5 páginas.</li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span>Galería de imágenes y formulario.</li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span>Ideal para mostrar tu trabajo.</li>
+                        </ul>
+                        <div id="paypal-button-container-P-1T955501L66107610NCYUMBI"></div>
+                    </div>
+                    <div class="bg-gray-50 rounded-2xl p-8 flex flex-col border border-gray-200/80">
+                        <h3 class="text-lg font-semibold mb-2">Impacto</h3>
+                        <p class="text-gray-600 mb-6">Conviértete en un referente.</p>
+                        <p class="text-5xl font-bold mb-8">$79<span class="text-xl font-medium text-gray-500"> / mes</span></p>
+                        <ul class="space-y-4 text-gray-700 mb-10 flex-grow text-sm">
+                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">✓</span>Todo lo del Plan Crecimiento.</li>
+                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">✓</span>Sección de Blog para marketing.</li>
+                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">✓</span>Posicionamiento SEO inicial.</li>
+                        </ul>
+                        <div id="paypal-button-container-P-9DB8761963542112PNCYUFHY"></div>
+                    </div>
+                </div>
+                <div class="mt-12 max-w-4xl mx-auto text-center">
+                    <p class="text-sm text-gray-600">
+                        <span class="font-semibold text-gray-800">¡Beneficio Adicional!</span> Todos nuestros planes incluyen un dominio personalizado (ej: <code>minegocio.profcr.com</code>) y un correo profesional (ej: <code>minegocio@profcr.com</code>) sin costo adicional para una imagen de marca impecable.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <footer id="contacto" class="bg-white">
-        </footer>
+        <div class="container mx-auto px-6 py-16 text-center text-gray-600 border-t border-gray-200">
+            <a href="#"><img src="images/logo.png" alt="ProfCR Logo" class="h-14 w-auto mx-auto mb-6"></a>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="https://www.facebook.com/amarkstudios/" target="_blank" class="text-gray-400 hover:text-blue-600 transition-colors"><span class="sr-only">Facebook</span><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg></a>
+                <a href="https://x.com/amarkstudio" target="_blank" class="text-gray-400 hover:text-gray-900 transition-colors"><span class="sr-only">X</span><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                <a href="https://www.instagram.com/amarkstudio/" target="_blank" class="text-gray-400 hover:text-pink-600 transition-colors"><span class="sr-only">Instagram</span><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2c2.828 0 3.23.012 4.352.063c1.096.05 1.83.218 2.47.464c.652.25 1.21.583 1.745 1.12c.537.536.87 1.092 1.12 1.744c.246.64.414 1.375.464 2.47c.05 1.123.063 1.524.063 4.352s-.012 3.23-.063 4.352c-.05 1.096-.218 1.83-.464 2.47c-.25.652-.583 1.21-1.12 1.745c-.536.537-1.092.87-1.744 1.12c-.64.246-1.375.414-2.47.464C8.77 2.013 9.172 2 12 2zm0 1.8c-2.775 0-3.15.01-4.25.06c-1.012.046-1.63.208-2.09.4c-.48.198-.86.46-1.25.85c-.39.39-.652.77-.85 1.25c-.192.46-.354 1.078-.4 2.09c-.05 1.1-.06 1.475-.06 4.25s.01 3.15.06 4.25c.046 1.012.208 1.63.4 2.09c.198.48.46.86.85 1.25c.39.39.77.652 1.25.85c.46.192 1.078.354 2.09.4c1.1.05 1.475.06 4.25.06s3.15-.01 4.25-.06c1.012-.046 1.63-.208-2.09-.4c.48-.198.86-.46-1.25-.85c.39-.39.652-.77.85-1.25c.192-.46.354-1.078.4-2.09c.05-1.1.06-1.475.06-4.25s-.01-3.15-.06-4.25c-.046-1.012-.208-1.63-.4-2.09c-.198-.48-.46-.86-.85-1.25c-.39-.39-.77-.652-1.25-.85c-.46-.192-1.078-.354-2.09-.4C15.15 3.81 14.775 3.8 12 3.8zm0 4.5a3.7 3.7 0 100 7.4a3.7 3.7 0 000-7.4zm0 6c-1.215 0-2.2-1.03-2.2-2.3s.985-2.3 2.2-2.3s2.2 1.03 2.2 2.3s-.985 2.3-2.2-2.3zm4.336-6.42a.9.9 0 100-1.8a.9.9 0 000 1.8z" clip-rule="evenodd" /></svg></a>
+                <a href="https://www.tiktok.com/@amarkstudio" target="_blank" class="text-gray-400 hover:text-gray-900 transition-colors"><span class="sr-only">TikTok</span><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-1.7v6.33A6.81 6.81 0 0 1 9.12 16a6.27 6.27 0 0 1-6.16-7.11 6.1 6.1 0 0 1 6.08-5.16v2.1a3.9 3.9 0 0 0-3.8 4.54 4.02 4.02 0 0 0 4.1 3.51 4.08 4.08 0 0 0 4.05-4.13V3h1.7a2.58 2.58 0 0 0 2.5 2.82z"/></svg></a>
+            </div>
+            <p class="text-sm max-w-md mx-auto mb-8">Impulsando a los profesionales de Costa Rica con tecnología y diseño de clase mundial.</p>
+            <p class="text-xs text-gray-500">&copy; 2025 <a href="https://wstudiocr.com" class="text-red-600 hover:underline">W Studio</a>. Creado por Apolo y <a href="https://gemini.google.com/" class="text-red-600 hover:underline">Gemini</a>.</p>
+        </div>
+    </footer>
 
     <div class="fixed bottom-6 right-6 z-[60]">
         <button id="chat-toggle-btn" class="bg-blue-600 text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform">
