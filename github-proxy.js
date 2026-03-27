@@ -1,76 +1,98 @@
 const express = require('express');
 const cors = require('cors');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+const { OpenAI } = require('openai');
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Configuración CORS para permitir que profcr.com hable con este servidor
+// Configuración CORS
 app.use(cors({
-    origin: '*', // En producción, idealmente cambiar esto por 'https://profcr.com'
+    origin: '*', // En producción, cambiar por 'https://profcr.com'
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
 }));
 
 app.use(express.json());
 
-// --- 1. CONFIGURACIÓN GEMINI ---
+// --- 1. CONFIGURACIÓN OPENAI ---
 // Leemos la llave desde las variables de entorno de Heroku
-const API_KEY = process.env.GEMINI_API_KEY;
+const API_KEY = process.env.OPENAI_API_KEY;
 
 if (!API_KEY) {
-    console.error("⚠️ ERROR CRÍTICO: No se encontró GEMINI_API_KEY en las variables de entorno.");
+    console.error("⚠️ ERROR CRÍTICO: No se encontró OPENAI_API_KEY en las variables de entorno.");
 }
 
-const genAI = new GoogleGenerativeAI(API_KEY);
+const openai = new OpenAI({
+    apiKey: API_KEY,
+});
 
-// Función para obtener el modelo (con fallback)
-function getModel() {
-    // Intentamos usar Flash por velocidad, o Pro si se prefiere
-    return genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-}
+// --- 2. PERSONALIDAD Y CONOCIMIENTO DEL BOT (SYSTEM PROMPT) ---
+const SYSTEM_PROMPT = `
+Eres el Asistente Virtual Oficial de ProfCR.com, una empresa de Infiniti IA by W Studio.
+Tu objetivo es ayudar a los profesionales en Costa Rica a obtener su sitio web profesional.
 
-// --- 2. RUTA RAÍZ (Solución al "Cannot GET /") ---
+NUESTROS PLANES:
+1. Plan Esencial ($29/mes): CV Digital, sitio web de 1 página, diseño profesional.
+2. Plan Crecimiento ($49/mes): Hasta 5 páginas, galería, formulario de contacto. (EL MÁS POPULAR)
+3. Plan Impacto ($79/mes): Todo lo anterior + Blog + SEO Inicial.
+* TODOS los planes incluyen un dominio (ej: minegocio.profcr.com) y correo profesional de Gmail Workspace (ej: minegocio@profcr.com).
+
+PROCESO DE COMPRA:
+El usuario debe elegir un plan en la web, pagar mediante el botón de PayPal. Una vez aprobado el pago, nuestro sistema en el backend verificará la factura, y mediante nuestra integración con GitHub, clonará y creará su sitio web automáticamente en minutos. 
+Luego, deben enviar su contenido al correo: planes@profcr.com.
+
+TONO:
+Profesional, amable, conciso y tecnológico. Respuestas cortas.
+Si preguntan por facturas o pagos de PayPal, diles que el sistema procesa el pago de forma segura y automática, y que si ya pagaron, su sitio se está generando.
+`;
+
+// --- 3. RUTA RAÍZ ---
 app.get('/', (req, res) => {
     res.send(`
         <h1>ProfCR AI Backend Online</h1>
         <p>Estado: <strong>Activo</strong></p>
-        <p>Modelo: Gemini 1.5 Flash</p>
+        <p>Motor: <strong>OpenAI (GPT-4o-mini)</strong></p>
         <p>Este servidor procesa las solicitudes de inteligencia artificial para ProfCR.com</p>
     `);
 });
 
-// --- 3. ENDPOINT DE CHAT ---
+// --- 4. ENDPOINT DE CHAT ---
 app.post('/api/chat', async (req, res) => {
     try {
         if (!API_KEY) {
-            throw new Error("API Key no configurada en el servidor.");
+            throw new Error("API Key de OpenAI no configurada en el servidor.");
         }
 
         const { message, history } = req.body;
         
-        // Configuración del modelo
-        const model = getModel();
-        
-        const chat = model.startChat({
-            history: history ? history.map(h => ({
-                role: h.role === 'ai' ? 'model' : 'user',
-                parts: [{ text: h.content }]
-            })) : [],
-            generationConfig: {
-                maxOutputTokens: 1000,
-            },
+        // Mapeamos el historial enviado por el frontend para asegurar compatibilidad con OpenAI
+        const formattedHistory = history ? history.map(h => ({
+            role: h.role === 'ai' || h.role === 'assistant' || h.role === 'model' ? 'assistant' : 'user',
+            content: h.content || (h.parts && h.parts[0] ? h.parts[0].text : '')
+        })) : [];
+
+        // Construimos la lista de mensajes (System + Historial + Mensaje actual)
+        const messages = [
+            { role: "system", content: SYSTEM_PROMPT },
+            ...formattedHistory,
+            { role: "user", content: message }
+        ];
+
+        // Llamada a OpenAI usando el modelo más eficiente en costo/beneficio
+        const completion = await openai.chat.completions.create({
+            model: "gpt-4o-mini", 
+            messages: messages,
+            max_tokens: 800,
+            temperature: 0.7,
         });
 
-        const result = await chat.sendMessage(message);
-        const response = await result.response;
-        const text = response.text();
+        const reply = completion.choices[0].message.content;
 
-        res.json({ response: text });
+        res.json({ response: reply });
 
     } catch (error) {
-        console.error("Error en chat:", error);
+        console.error("Error en chat OpenAI:", error);
         res.status(500).json({ 
             error: "Error interno del servidor de IA", 
             details: error.message 
@@ -78,8 +100,8 @@ app.post('/api/chat', async (req, res) => {
     }
 });
 
-// --- 4. INICIAR SERVIDOR ---
+// --- 5. INICIAR SERVIDOR ---
 app.listen(port, () => {
     console.log(`Servidor ProfCR escuchando en el puerto ${port}`);
-    console.log(`Verificación de API Key: ${API_KEY ? 'Cargada ✅' : 'Faltante ❌'}`);
+    console.log(`Verificación de OPENAI_API_KEY: ${API_KEY ? 'Cargada ✅' : 'Faltante ❌'}`);
 });
