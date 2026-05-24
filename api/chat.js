@@ -27,7 +27,7 @@ Si preguntan por facturas o pagos de PayPal, explica que PayPal procesa el pago 
 `;
 
 const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
-const OPENAI_MODEL = process.env.OPENAI_MODEL || "gpt-4o-mini";
+const DEFAULT_OPENAI_MODEL = "gpt-4o-mini";
 const MAX_HISTORY_MESSAGES = 12;
 
 function setResponseHeaders(res) {
@@ -71,6 +71,11 @@ function normalizeHistory(history) {
     .filter((item) => item.content.trim().length > 0);
 }
 
+function getConfiguredModel() {
+  const model = (process.env.OPENAI_MODEL || DEFAULT_OPENAI_MODEL).trim();
+  return model.replace(/^["']|["']$/g, "") || DEFAULT_OPENAI_MODEL;
+}
+
 function getOpenAIError(status) {
   if (status === 401) {
     return {
@@ -96,7 +101,7 @@ function getOpenAIError(status) {
   if (status === 400) {
     return {
       code: "openai_bad_request",
-      ownerMessage: "OpenAI rechazo la solicitud. Revisa OPENAI_MODEL y el formato enviado.",
+      ownerMessage: "OpenAI rechazo la solicitud. Revisa OPENAI_MODEL y los parametros enviados.",
     };
   }
 
@@ -143,10 +148,9 @@ module.exports = async function handler(req, res) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: OPENAI_MODEL,
+        model: getConfiguredModel(),
         messages,
-        max_tokens: 800,
-        temperature: 0.7,
+        max_completion_tokens: 800,
       }),
     });
 
