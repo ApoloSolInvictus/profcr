@@ -372,9 +372,9 @@
                 });
                 
                 if (!response.ok) { 
-                    // Intentamos leer el mensaje de error real del servidor
                     const errorData = await response.json().catch(() => ({}));
-                    throw new Error(errorData.error || errorData.details || `Fallo del Servidor: ${response.status}`); 
+                    console.error("Detalle del asistente:", errorData);
+                    throw new Error('El asistente no está disponible en este momento.'); 
                 }
                 
                 const data = await response.json();

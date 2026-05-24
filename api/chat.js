@@ -9,6 +9,11 @@ NUESTROS PLANES:
 3. Plan Impacto ($79/mes): Todo lo anterior, mas Blog y SEO inicial.
 Todos los planes incluyen un dominio tipo minegocio.profcr.com y correo profesional de Google Workspace tipo minegocio@profcr.com.
 
+DIRECTORIO PROFCR:
+Incluir un sitio web propio en el directorio de ProfCR es totalmente gratis.
+Los clientes pueden agregar su perfil con direccion a su sitio web sin costo.
+Para solicitarlo, deben enviar su informacion a planes@profcr.com; W Studio les dira como avanzar y se agregara el perfil lo antes posible.
+
 PROCESO DE COMPRA:
 El usuario elige un plan en la web y paga mediante el boton de PayPal.
 Despues del pago, W Studio revisa la suscripcion, coordina los contenidos con el cliente y disena/desarrolla el sitio web profesional.
@@ -66,6 +71,41 @@ function normalizeHistory(history) {
     .filter((item) => item.content.trim().length > 0);
 }
 
+function getOpenAIError(status) {
+  if (status === 401) {
+    return {
+      code: "openai_auth_error",
+      ownerMessage: "La API key de OpenAI configurada en Vercel no es valida.",
+    };
+  }
+
+  if (status === 403) {
+    return {
+      code: "openai_permission_error",
+      ownerMessage: "La API key de OpenAI no tiene permiso para usar este modelo o proyecto.",
+    };
+  }
+
+  if (status === 429) {
+    return {
+      code: "openai_quota_or_rate_limit",
+      ownerMessage: "La cuenta de OpenAI no tiene cuota disponible o esta limitada temporalmente.",
+    };
+  }
+
+  if (status === 400) {
+    return {
+      code: "openai_bad_request",
+      ownerMessage: "OpenAI rechazo la solicitud. Revisa OPENAI_MODEL y el formato enviado.",
+    };
+  }
+
+  return {
+    code: "openai_upstream_error",
+    ownerMessage: "OpenAI no devolvio una respuesta correcta.",
+  };
+}
+
 module.exports = async function handler(req, res) {
   setResponseHeaders(res);
 
@@ -112,8 +152,13 @@ module.exports = async function handler(req, res) {
 
     if (!openaiResponse.ok) {
       const errorText = await openaiResponse.text();
-      console.error("OpenAI respondio con error:", openaiResponse.status, errorText.slice(0, 500));
-      return res.status(502).json({ error: "No pudimos obtener respuesta del asistente." });
+      const diagnostic = getOpenAIError(openaiResponse.status);
+      console.error("OpenAI respondio con error:", openaiResponse.status, diagnostic.code, errorText.slice(0, 500));
+      return res.status(502).json({
+        error: "No pudimos obtener respuesta del asistente.",
+        code: diagnostic.code,
+        ownerMessage: diagnostic.ownerMessage,
+      });
     }
 
     const data = await openaiResponse.json();
