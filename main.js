@@ -121,26 +121,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- LÓGICA DE PAYPAL ---
-    const handleSubscription = (data, planName, planId) => {
-        console.log(`Verificando suscripción para ${planName}: ${data.subscriptionID}`);
-        const VERIFY_URL = 'https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/verify-subscription';
-        fetch(VERIFY_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ subscriptionID: data.subscriptionID, planId, planName })
-        })
-        .then(response => response.ok ? response.json() : Promise.reject(`Error del servidor: ${response.status}`))
-        .then(result => {
-            if (result.status === 'verificado') {
-                alert(`¡Gracias por tu suscripción al plan ${planName}! Recibirás un correo en breve.`);
-            } else {
-                alert('La verificación de tu pago no fue exitosa. Contacta a soporte.');
-            }
-        })
-        .catch(error => {
-            console.error('Error en la verificación:', error);
-            alert('Ocurrió un error al conectar con nuestros servicios. Contacta a soporte para confirmar tu suscripción.');
-        });
+    const handleSubscription = (data, planName) => {
+        const subscriptionId = data.subscriptionID ? `\nID de suscripción: ${data.subscriptionID}` : '';
+        console.log(`Suscripción aprobada para ${planName}: ${data.subscriptionID || 'sin ID recibido'}`);
+        alert(`¡Gracias por tu suscripción al plan ${planName}! W Studio revisará el pago y coordinará contigo los contenidos del sitio web.${subscriptionId}\n\nTambién puedes escribir a planes@profcr.com para avanzar con el proceso.`);
     };
 
     if (typeof paypal !== 'undefined') {

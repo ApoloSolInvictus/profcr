@@ -1,0 +1,12 @@
+{
+  "name": "profcr",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio ProfCR con API serverless de OpenAI para Vercel.",
+  "scripts": {
+    "check": "node -c api/chat.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -178,7 +178,7 @@
         <section class="py-24 md:py-32 px-6 bg-white text-center">
             <div class="container mx-auto">
                 <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">La Fusión Perfecta: <br>Creatividad Humana, Velocidad IA.</h2>
-                <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-12"><a href="https://wstudiocr.com" class="text-red-600 hover:underline">W Studio</a> nace de la unión entre la visión estratégica de Apolo y la ejecución de la IA. Esta sinergia nos permite crear sitios web de calidad superior en tiempo récord. Ofrecemos un producto sostenible y de vanguardia, haciendo el diseño profesional accesible para todos.</p>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-12"><a href="https://wstudiocr.com" class="text-red-600 hover:underline">W Studio</a>, creador de ProfCR e Infiniti IA, combina estrategia humana, diseño profesional e inteligencia artificial como herramienta creativa. Así creamos sitios web de calidad superior, sostenibles y de vanguardia, haciendo el diseño profesional accesible para todos.</p>
                 <div class="flex justify-center items-center h-80">
                     <img src="images/humanai.png" alt="Concepto de colaboración Humano-IA" class="max-h-full">
                 </div>
@@ -270,7 +270,7 @@
             <div id="chat-messages" class="p-4 overflow-y-auto space-y-4 flex-1 scroll-smooth">
                 <div class="flex justify-start">
                     <div class="chat-bubble bg-white text-gray-800 p-3 rounded-lg rounded-bl-none shadow-sm text-sm">
-                        <p>¡Hola! Soy la Inteligencia Artificial de ProfCR. ¿En qué te puedo ayudar hoy? ¿Te gustaría conocer nuestros planes o ver cómo crear tu sitio web automáticamente?</p>
+                        <p>¡Hola! Soy la Inteligencia Artificial de ProfCR. ¿En qué te puedo ayudar hoy? ¿Te gustaría conocer nuestros planes o saber cómo W Studio puede crear tu sitio web profesional?</p>
                     </div>
                 </div>
             </div>
@@ -359,11 +359,7 @@
         };
 
         const getOpenAIResponse = async (userInput) => {
-            // =========================================================================
-            // ¡ATENCIÓN SOBERANO! 
-            // Reemplaza esto con el enlace EXACTO de tu App en Heroku (añadiendo /api/chat)
-            // =========================================================================
-            const API_URL = 'https://profcr-geminichat-backend-b9ca0429e705.herokuapp.com/api/chat';
+            const API_URL = '/api/chat';
             
             try {
                 const response = await fetch(API_URL, {
@@ -389,9 +385,9 @@
                 
                 return { text: aiResponse, error: false };
             } catch (error) {
-                console.error("Error al contactar Heroku:", error);
+                console.error("Error al contactar el asistente:", error);
                 return { 
-                    text: `<b>Error de Conexión:</b> ${error.message}<br><br><small>Verifica que la URL en API_URL sea la correcta y que tu OPENAI_API_KEY esté en Heroku.</small>`, 
+                    text: `<b>Error de Conexión:</b> ${error.message}<br><br><small>Intenta de nuevo en unos minutos o escribe a planes@profcr.com.</small>`, 
                     error: true 
                 };
             }
